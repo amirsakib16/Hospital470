@@ -1,0 +1,430 @@
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+
+}
+
+.top-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #222;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    font-size: 1.2rem;
+    position: relative;
+    z-index: 100;
+    background: rgba(18, 18, 18, 0.6);
+    /* semi-transparent */
+    backdrop-filter: blur(92px);
+    -webkit-backdrop-filter: blur(92px);
+
+    box-shadow: 0 0 20px rgba(2, 49, 31, 0.3);
+    /* neon glow */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    font-size: 1.5rem;
+    gap: 0.5rem;
+    /* Space between logo and text */
+}
+
+.logo-image {
+    height: 70px;
+    width: auto;
+    max-width: 100px;
+    object-fit: contain;
+    cursor: pointer;
+}
+
+.logo-text {
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+}
+
+/* Optional: Add hover effects */
+.logo:hover .logo-text {
+    color: #00ff99;
+    /* Green accent color */
+    transition: color 0.2s ease;
+}
+
+.logo:hover .logo-image {
+    opacity: 0.8;
+    transition: opacity 0.2s ease;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .logo-image {
+        height: 25px;
+        max-width: 80px;
+    }
+
+    .logo-text {
+        font-size: 1.2rem;
+    }
+}
+
+
+.sidebar-toggle {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.8rem;
+    cursor: pointer;
+    user-select: none;
+
+}
+
+.main-content {
+    flex: 1;
+    display: flex;
+    position: relative;
+    overflow: hidden;
+    transition: margin-right 0.3s ease;
+}
+
+.dashboard-container.sidebar-open .main-content {
+    margin-right: 300px;
+}
+
+.content-area {
+    flex: 1;
+    padding: 1rem 2rem;
+    overflow-y: auto;
+    background-color: #f5f5f5;
+    display: flex;
+    flex-direction: column;
+    background-image: url("E:\Hospital470\FRONTEND\hospital_management\public\download.jpg");
+    /* ✅ Root-relative path (public/) */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    /* Optional: makes it more immersive */
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    background: rgba(18, 18, 18, 0.6);
+
+
+    box-shadow: 0 0 20px rgba(0, 255, 153, 0.3);
+    /* neon glow */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.user-info-box {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0, 255, 128, 0.3);
+    color: #fff;
+    min-height: 220px;
+}
+
+.user-info-content {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    width: 100%;
+}
+
+.profile-section {
+    flex: 0 0 200px;
+    /* fixed square box */
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #1f1f1f;
+    border-radius: 4px;
+}
+
+.profile-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0;
+    /* 🔴 This removes the round shape */
+    border: 1px solid #00ff99;
+    background-color: #000;
+    border-radius: 15px;
+}
+
+.profile-section h3 {
+    margin-top: 0.5rem;
+    font-size: 1rem;
+    text-align: center;
+    color: #37ff0000;
+}
+
+.info-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.6rem;
+    font-size: 1rem;
+    font-family: 'Orbitron';
+}
+
+.info-item {
+    display: flex;
+    gap: 1rem;
+}
+
+.info-item .label {
+    font-weight: bold;
+    color: #00ff99;
+    min-width: 100px;
+    font-family: 'Orbitron';
+    font-size:x-large;
+}
+
+.info-item .value {
+    color: #bdd4ff;
+    font-family: 'Orbitron';
+    font-size:x-large;
+}
+
+
+.flex-sections {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+    padding-right: 45px;
+    padding-left: 45px;
+}
+
+.flex-box {
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    color: #ffffff;
+    /* Frosted glass effect */
+    background: linear-gradient(135deg,
+            rgba(0, 0, 0, 0.6),
+            rgba(113, 226, 254, 0.3));
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 255, 255, 0.329);
+}
+
+/* Different sizes for irregular layout */
+.flex-box:nth-child(1) {
+    flex: 1 1 60%;
+    /* Large */
+    min-height: 220px;
+}
+
+.flex-box:nth-child(2) {
+    flex: 1 1 15%;
+    /* Medium */
+    min-height: 100px;
+}
+
+.flex-box:nth-child(3) {
+    flex: 1 1 15%;
+    /* Small */
+    min-height: 80px;
+}
+
+.flex-box:nth-child(4) {
+    flex: 1 1 10%;
+    /* Small-Medium */
+    min-height: 40px;
+}
+
+.flex-box:nth-child(5) {
+    flex: 1 1 20%;
+    /* Medium */
+    min-height: 110px;
+}
+
+.flex-box:nth-child(6) {
+    flex: 1 1 23%;
+    /* Extra Large */
+    min-height: 180px;
+}
+
+.flex-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    background-color: rgba(255, 255, 255, 0.1);
+    /* optional */
+    color: #fff;
+}
+
+.box-logo-AD {
+    width: 230px;
+    /* Adjust size as needed */
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.box-logo-EC {
+    width: 250px;
+    /* Adjust size as needed */
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.box-logo-MS {
+    width: 190px;
+    /* Adjust size as needed */
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.box-logo-A {
+    width: 190px;
+    /* Adjust size as needed */
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.box-logo-H {
+    width: 210px;
+    /* Adjust size as needed */
+    height: auto;
+    margin-bottom: 10px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+
+    .flex-box:nth-child(1),
+    .flex-box:nth-child(2),
+    .flex-box:nth-child(3),
+    .flex-box:nth-child(4),
+    .flex-box:nth-child(5),
+    .flex-box:nth-child(6) {
+        flex: 1 1 100%;
+        min-height: 100px;
+    }
+}
+
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: -300px;
+    width: 300px;
+    height: 100vh;
+    background-color: #012a3a;
+    opacity: 0.9;
+    color: #fff;
+    box-shadow: -2px 0 8px rgba(0, 0, 0, 0.3);
+    padding: 1rem;
+    transition: right 0.3s ease;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+.sidebar.open {
+    right: 0;
+}
+
+.close-btn {
+    align-self: flex-end;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 2rem;
+    cursor: pointer;
+    margin-bottom: 1rem;
+    padding: 0;
+    line-height: 1;
+}
+
+.sidebar-content {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.sidebar-content h2 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: #fff;
+}
+
+.sidebar-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-content li {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #555;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.sidebar-content li:hover {
+    background-color: #58c7ff;
+    padding-left: 0.5rem;
+    color: black;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    
+    z-index: 900;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .dashboard-container.sidebar-open .main-content {
+        margin-right: 0;
+    }
+
+    .sidebar {
+        width: 280px;
+        right: -280px;
+    }
+
+    .flex-sections {
+        flex-direction: column;
+    }
+
+    .flex-box {
+        flex: 1 1 100%;
+    }
+}

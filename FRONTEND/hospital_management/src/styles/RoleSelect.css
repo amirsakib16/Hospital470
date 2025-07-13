@@ -1,0 +1,177 @@
+.role-select-container {
+    height: 100vh;
+    width: 100vw;
+    background-image: url('/download.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    box-sizing: border-box;
+    color: #e0e0e0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+
+
+
+
+.logoROLE {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+    margin-bottom: 0.1rem;
+    
+}
+
+.logo-imageROLE {
+    height: 260px;
+    width: auto;
+    max-width: 200px;
+    object-fit: contain;
+    cursor: pointer;
+    filter: drop-shadow(0 0 5px rgba(0, 255, 153, 0.3));
+    transition: all 0.3s ease;
+}
+
+.logo-textROLE {
+    color: #ffffff;
+    font-size: 5.5rem; /* Increased font size */
+    font-weight: bold;
+    letter-spacing: 1px;
+    cursor: pointer;
+    text-shadow: 0 0 15px #00ffc8; /* Enhanced glow effect */
+}
+
+/* Optional: Add hover effects for larger logo */
+.logoROLE:hover .logo-textROLE {
+    color: #ffffff;
+    text-shadow: 0 0 20px #86ffcd;
+    transition: all 0.3s ease;
+}
+
+.logoROLE:hover .logo-imageROLE {
+    opacity: 0.9;
+    transform: scale(1.05);
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 0 5px #00ffff5f) drop-shadow(0 0 25px #050133bf);
+    /* Added glow effect */
+}
+
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+    .logo-imageROLE {
+        height: 50px;
+        max-width: 150px;
+    }
+    
+    .logo-textROLE {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo-imageROLE {
+        height: 40px;
+        max-width: 120px;
+    }
+    
+    .logo-textROLE {
+        font-size: 2rem;
+    }
+}
+
+.header-textROLE {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 3rem;
+    color: #00ff99;
+    text-shadow: 0 0 10px #00ff99;
+}
+
+.role-flex-container {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    width: 100%;
+    max-width: 900px;
+}
+
+.role-box {
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers content horizontally */
+    justify-content: space-between; /* Distributes space between image and text */
+    font-weight: 600;
+    color: #ffffff;
+    /* Frosted glass effect */
+    background: linear-gradient(135deg,
+            rgba(0, 0, 0, 0.6),
+            rgba(113, 226, 254, 0.3));
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 255, 255, 0.329);
+
+    text-align: center;
+    font-size: 2.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    user-select: none;
+}
+
+.box-logo-DoctorLogo,
+.box-logo-PatientLogo,
+.box-logo-AdminLogo {
+    width: 230px;
+    height: auto;
+    margin: 0 auto; /* Centers the image horizontally */
+    display: block; /* Ensures margin auto works */
+    flex-shrink: 0; /* Prevents shrinking */
+}
+
+.role-box span p {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-top: auto; /* Pushes text to bottom */
+}
+
+.role-box:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px #75faff;
+}
+
+/* Responsive for smaller screens */
+@media (max-width: 768px) {
+    .role-flex-container {
+        flex-direction: column;
+        max-width: 400px;
+    }
+
+    .role-box {
+        padding: 2rem 1rem;
+        font-size: 1.5rem;
+    }
+    
+    .box-logo-DoctorLogo,
+    .box-logo-PatientLogo,
+    .box-logo-AdminLogo {
+        width: 180px;
+    }
+    
+    .role-box span p {
+        font-size: 1.4rem;
+    }
+}

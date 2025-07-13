@@ -1,0 +1,154 @@
+body {
+    background-image: url("E:\Hospital470\FRONTEND\hospital_management\public\download.jpg"); /* ✅ Root-relative path (public/) */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* Optional: makes it more immersive */
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+}
+
+
+
+.profile-edit-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    border-radius: 12px;
+    color: #e0e0e0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    /* Frosted glass effect */
+    background: rgba(18, 18, 18, 0.6); /* semi-transparent */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    box-shadow: 0 0 20px rgba(0, 255, 153, 0.3); /* neon glow */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+
+.profile-edit-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem 2rem;
+}
+
+.profile-edit-form label {
+    display: flex;
+    flex-direction: column;
+    font-weight: 600;
+}
+
+.profile-edit-form input {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.3rem;
+    border-radius: 8px;
+    border: 1px solid #00ff99;
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.profile-edit-form input:focus {
+    outline: none;
+    border-color: #00ff99;
+    box-shadow: 0 0 8px #00ff99;
+}
+
+.profile-edit-form button {
+    grid-column: 1 / span 2;
+    /* Button spans both columns */
+    margin-top: 1rem;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(90deg, #00ff99, #00cc77);
+    color: #121212;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.profile-edit-form button:hover {
+    background: linear-gradient(90deg, #00cc77, #009955);
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    .profile-edit-container {
+        max-width: 400px;
+    }
+
+    .profile-edit-form {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .profile-edit-form button {
+        grid-column: 1;
+    }
+}
+
+/* Specific styling for file input (image upload) */
+.profile-edit-form input[type="file"] {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.3rem;
+    border-radius: 8px;
+    border: 1px solid #00ff99;
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+    cursor: pointer;
+}
+
+.profile-edit-form input[type="file"]:focus {
+    outline: none;
+    border-color: #00ff99;
+    box-shadow: 0 0 8px #00ff99;
+}
+
+.profile-edit-form input[type="file"]:hover {
+    border-color: #00cc77;
+    background-color: #2a2a2a;
+}
+
+/* Style the file input button */
+.profile-edit-form input[type="file"]::file-selector-button {
+    background: linear-gradient(90deg, #00ff99, #00cc77);
+    color: #121212;
+    border: none;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-right: 0.5rem;
+    transition: background 0.3s ease;
+}
+
+.profile-edit-form input[type="file"]::file-selector-button:hover {
+    background: linear-gradient(90deg, #00cc77, #009955);
+}
+
+/* For WebKit browsers (Chrome, Safari) */
+.profile-edit-form input[type="file"]::-webkit-file-upload-button {
+    background: linear-gradient(90deg, #00ff99, #00cc77);
+    color: #121212;
+    border: none;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-right: 0.5rem;
+    transition: background 0.3s ease;
+}
+
+.profile-edit-form input[type="file"]::-webkit-file-upload-button:hover {
+    background: linear-gradient(90deg, #00cc77, #009955);
+}
