@@ -5,6 +5,7 @@ import About from "./components/About";
 import RoleSelect from "./components/RoleSelect";
 import PatientDashboard from "./components/PatientDashboard";
 import DoctorAppoinment from "./components/DoctorAppoinment";
+import MedicineList from "./components/MedicineList";
 const App = () => {
   return (
     <Router>
@@ -15,6 +16,7 @@ const App = () => {
         <Route path="/home" element={<Home />} />
         <Route path="/pdash" element={<PatientDashboard />} />
         <Route path="/dapp" element={<DoctorAppoinment />} />
+        <Route path="/med" element={<MedicineList />} />
       </Routes>
     </Router>
   );
