@@ -15,7 +15,12 @@ const PORT = 5000;
 connectDB();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+    origin: ['http://localhost:3000', 'http://localhost:5173', 'http://localhost:5174'],
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.use(express.json());
 
 const fs = require("fs");
@@ -35,7 +40,13 @@ if (!fs.existsSync(documentsPath)) {
 // Serve static files (only once)
 app.use("/uploads", express.static("uploads"));
 app.use("/documents", express.static(path.join(__dirname, "uploads", "documents")));
-app.use("/images", express.static(path.join(__dirname, "images")));
+app.use('/images', (req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    res.header('Cache-Control', 'public, max-age=86400');
+    next();
+}, express.static(path.join(__dirname, 'images')));
 
 // API Routes (organized properly)
 app.use("/api/doctors", doctorRoutes);
