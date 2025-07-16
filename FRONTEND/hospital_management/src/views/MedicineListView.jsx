@@ -53,11 +53,10 @@ const MedicineList = () => {
     return (
         <div className="medicine-list-container">
             <div className="header-section">
-                <h1>Medicine List</h1>
-                <p>Total Medicines: {medicines.length}</p>
-                <button onClick={fetchMedicines} className="refresh-btn">
-                    Refresh
-                </button>
+                <div className="logo">
+                    <img src="IMG_7065-removebg-preview.png" alt="Medi Logo" className="logo-imageMedi" />
+                </div>
+
             </div>
 
             <div className="medicines-grid">
@@ -75,45 +74,39 @@ const MedicineList = () => {
 
                             <div className="medicine-image">
                                 {medicine.image_path ? (
-                                    <img 
-                                        src={`http://localhost:5000/${medicine.image_path}`}
+                                    <img
+                                        src={`http://localhost:5000/images/${medicine.image_path}`}
                                         alt={medicine.name}
                                         className="medicine-img"
+                                        crossOrigin="anonymous"
                                         onError={(e) => {
-                                            e.target.src = '/placeholder-medicine.png';
-                                            e.target.onerror = null;
+                                            console.log('Image load error for:', medicine.name);
+                                            console.log('Image path:', medicine.image_path);
+                                            console.log('Full URL:', `http://localhost:5000/images/${medicine.image_path}`);
+                                            e.target.style.display = 'none';
+                                            e.target.nextSibling.style.display = 'flex';
+                                        }}
+                                        onLoad={() => {
+                                            console.log('Image loaded successfully:', medicine.image_path);
                                         }}
                                     />
-                                ) : (
-                                    <div className="no-image">
-                                        <span>No Image Available</span>
-                                    </div>
-                                )}
+                                ) : null}
+                                <div className="no-image" style={{ display: 'none' }}>
+                                    <span>Image not available</span>
+                                </div>
                             </div>
+
+
 
                             <div className="medicine-details">
                                 <div className="detail-item">
                                     <span className="label">Medicine ID:</span>
                                     <span className="value">{medicine.id}</span>
                                 </div>
-                                
+
                                 <div className="detail-item">
                                     <span className="label">Name:</span>
                                     <span className="value">{medicine.name}</span>
-                                </div>
-
-                                {medicine.image_path && (
-                                    <div className="detail-item">
-                                        <span className="label">Image:</span>
-                                        <span className="value">Available</span>
-                                    </div>
-                                )}
-
-                                <div className="detail-item">
-                                    <span className="label">Added:</span>
-                                    <span className="value">
-                                        {new Date(medicine.createdAt).toLocaleDateString()}
-                                    </span>
                                 </div>
                             </div>
 

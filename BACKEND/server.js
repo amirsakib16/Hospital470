@@ -6,7 +6,7 @@ const connectDB = require("./config/db");
 const doctorRoutes = require("./routes/doctorRoutes");
 const patientRecordRoutes = require("./routes/patientRecordRoutes");
 const patientAppointmentRoutes = require("./routes/doctorAppoinmentRoutes");
-const medicineRoutes = require("./routes/medicineRoutes"); 
+const medicineRoutes = require("./routes/medicineRoutes");
 
 const app = express();
 const PORT = 5000;
@@ -14,32 +14,38 @@ const PORT = 5000;
 // Connect to MongoDB
 connectDB();
 
-// Middleware
+// Enhanced CORS configuration
 app.use(cors({
     origin: ['http://localhost:3000', 'http://localhost:5173', 'http://localhost:5174'],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
+
 app.use(express.json());
 
 const fs = require("fs");
 
-// Ensure 'uploads' directory exists
+// Ensure all directories exist
 const uploadPath = path.join(__dirname, "uploads");
 const documentsPath = path.join(__dirname, "uploads", "documents");
 const imagesPath = path.join(__dirname, "images");
 
 if (!fs.existsSync(uploadPath)) {
-    fs.mkdirSync(uploadPath);
+    fs.mkdirSync(uploadPath, { recursive: true });
 }
 if (!fs.existsSync(documentsPath)) {
     fs.mkdirSync(documentsPath, { recursive: true });
 }
+if (!fs.existsSync(imagesPath)) {
+    fs.mkdirSync(imagesPath, { recursive: true });
+}
 
-// Serve static files (only once)
+// Static file serving with proper CORS headers
 app.use("/uploads", express.static("uploads"));
 app.use("/documents", express.static(path.join(__dirname, "uploads", "documents")));
+
+// CRITICAL: Proper images route with CORS headers
 app.use('/images', (req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET');
@@ -48,19 +54,30 @@ app.use('/images', (req, res, next) => {
     next();
 }, express.static(path.join(__dirname, 'images')));
 
-// API Routes (organized properly)
+// API Routes
 app.use("/api/doctors", doctorRoutes);
 app.use("/api/patientrecords", patientRecordRoutes);
 app.use("/api/appointments", patientAppointmentRoutes);
 app.use("/api/medicines", medicineRoutes);
 
-// Test routes
+// Test endpoints
 app.get("/", (req, res) => {
     res.send({ message: "Backend is running!" });
 });
 
-app.get("/about", (req, res) => {
-    res.send({ message: "We are a team of developers building cool stuff!" });
+// Test images directory
+app.get('/test-images', (req, res) => {
+    const imagesDir = path.join(__dirname, 'images');
+    fs.readdir(imagesDir, (err, files) => {
+        if (err) {
+            return res.status(500).json({ error: 'Cannot read images directory' });
+        }
+        res.json({ 
+            message: 'Images directory contents',
+            files: files,
+            path: imagesDir
+        });
+    });
 });
 
 app.listen(PORT, () => {
