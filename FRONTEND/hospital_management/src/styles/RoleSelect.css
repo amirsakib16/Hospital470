@@ -1,9 +1,6 @@
 .role-select-container {
     height: 100vh;
     width: 100vw;
-    background-image: url('/download.jpg');
-    background-size: cover;
-    background-position: center;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -11,12 +8,31 @@
     box-sizing: border-box;
     color: #e0e0e0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    position: relative;
+    overflow: hidden;
 }
 
+/* Video Background Styles */
+.video-background-role {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+}
 
-
-
-
+/* Video Overlay for better text readability */
+.video-overlay-role {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: -1;
+}
 
 .logoROLE {
     display: flex;
@@ -24,7 +40,8 @@
     justify-content: center;
     gap: 3rem;
     margin-bottom: 0.1rem;
-    
+    position: relative;
+    z-index: 2;
 }
 
 .logo-imageROLE {
@@ -33,7 +50,7 @@
     max-width: 200px;
     object-fit: contain;
     cursor: pointer;
-    filter: drop-shadow(0 0 5px rgba(0, 255, 153, 0.3));
+    filter: drop-shadow(0 0 5px rgba(0, 28, 17, 0.829));
     transition: all 0.3s ease;
 }
 
@@ -43,7 +60,7 @@
     font-weight: bold;
     letter-spacing: 1px;
     cursor: pointer;
-    text-shadow: 0 0 15px #00ffc8; /* Enhanced glow effect */
+    text-shadow: 0 0 15px #001e18; /* Enhanced glow effect */
 }
 
 /* Optional: Add hover effects for larger logo */
@@ -61,9 +78,12 @@
     /* Added glow effect */
 }
 
-
-/* Mobile responsive adjustments */
+/* Mobile responsive adjustments for logo */
 @media (max-width: 768px) {
+    .logoROLE {
+        gap: 1.5rem;
+    }
+    
     .logo-imageROLE {
         height: 50px;
         max-width: 150px;
@@ -72,9 +92,22 @@
     .logo-textROLE {
         font-size: 2.5rem;
     }
+    
+    /* Hide video on mobile for performance */
+    .video-background-role {
+        display: none;
+    }
+    
+    .role-select-container {
+        background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    }
 }
 
 @media (max-width: 480px) {
+    .logoROLE {
+        gap: 1rem;
+    }
+    
     .logo-imageROLE {
         height: 40px;
         max-width: 120px;
@@ -90,7 +123,9 @@
     font-weight: 700;
     margin-bottom: 3rem;
     color: #00ff99;
-    text-shadow: 0 0 10px #00ff99;
+    text-shadow: 0 0 10px #000101;
+    position: relative;
+    z-index: 2;
 }
 
 .role-flex-container {
@@ -99,6 +134,8 @@
     justify-content: center;
     width: 100%;
     max-width: 900px;
+    position: relative;
+    z-index: 2;
 }
 
 .role-box {
@@ -112,21 +149,21 @@
     justify-content: space-between; /* Distributes space between image and text */
     font-weight: 600;
     color: #ffffff;
-    /* Frosted glass effect */
+    /* Enhanced frosted glass effect for video background */
     background: linear-gradient(135deg,
-            rgba(0, 0, 0, 0.6),
-            rgba(113, 226, 254, 0.3));
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(0, 255, 255, 0.329);
-
+            rgba(0, 0, 0, 0.7),
+            rgba(113, 226, 254, 0.4));
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    box-shadow: 
+        0 0 20px rgba(0, 0, 0, 0.3),
+        0 0 40px rgba(0, 255, 153, 0.2);
+    border: 1px solid rgba(0, 255, 255, 0.4);
     text-align: center;
     font-size: 2.8rem;
     font-weight: 700;
     cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.3s ease;
     user-select: none;
 }
 
@@ -138,6 +175,8 @@
     margin: 0 auto; /* Centers the image horizontally */
     display: block; /* Ensures margin auto works */
     flex-shrink: 0; /* Prevents shrinking */
+    filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.399));
+    transition: filter 0.3s ease;
 }
 
 .role-box span p {
@@ -146,23 +185,41 @@
     font-weight: 700;
     color: #ffffff;
     margin-top: auto; /* Pushes text to bottom */
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
 
 .role-box:hover {
     transform: scale(1.05);
-    box-shadow: 0 0 15px #75faff;
+    box-shadow: 
+        0 0 15px #75faff,
+        0 0 30px rgba(0, 255, 153, 0.4);
+    background: linear-gradient(135deg,
+            rgba(0, 0, 0, 0.8),
+            rgba(113, 226, 254, 0.5));
+}
+
+.role-box:hover .box-logo-DoctorLogo,
+.role-box:hover .box-logo-PatientLogo,
+.role-box:hover .box-logo-AdminLogo {
+    filter: drop-shadow(0 0 10px rgba(0, 255, 153, 0.6));
 }
 
 /* Responsive for smaller screens */
 @media (max-width: 768px) {
+    .role-select-container {
+        padding: 1rem;
+    }
+    
     .role-flex-container {
         flex-direction: column;
         max-width: 400px;
+        gap: 1.5rem;
     }
 
     .role-box {
         padding: 2rem 1rem;
         font-size: 1.5rem;
+        min-height: 80px;
     }
     
     .box-logo-DoctorLogo,
@@ -173,5 +230,95 @@
     
     .role-box span p {
         font-size: 1.4rem;
+    }
+    
+    .header-textROLE {
+        font-size: 2.2rem;
+        margin-bottom: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .role-box {
+        padding: 1.5rem 1rem;
+        font-size: 1.2rem;
+    }
+    
+    .box-logo-DoctorLogo,
+    .box-logo-PatientLogo,
+    .box-logo-AdminLogo {
+        width: 150px;
+    }
+    
+    .role-box span p {
+        font-size: 1.2rem;
+    }
+    
+    .header-textROLE {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+    }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+    .video-overlay-role {
+        background: rgba(0, 0, 0, 0.7);
+    }
+    
+    .role-box {
+        border: 3px solid #00ff99;
+        background: rgba(0, 0, 0, 0.9);
+    }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    .video-background-role {
+        display: none;
+    }
+    
+    .role-select-container {
+        background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    }
+    
+    .role-box,
+    .logo-imageROLE,
+    .logo-textROLE {
+        transition: none;
+        animation: none;
+    }
+    
+    .role-box:hover,
+    .logoROLE:hover .logo-imageROLE,
+    .logoROLE:hover .logo-textROLE {
+        transform: none;
+    }
+}
+
+/* Print styles */
+@media print {
+    .role-select-container {
+        background: white;
+        color: black;
+    }
+    
+    .video-background-role,
+    .video-overlay-role {
+        display: none;
+    }
+    
+    .role-box {
+        background: white;
+        border: 2px solid black;
+        box-shadow: none;
+        color: black;
+    }
+    
+    .header-textROLE,
+    .logo-textROLE,
+    .role-box span p {
+        color: black;
+        text-shadow: none;
     }
 }

@@ -7,7 +7,8 @@ const DoctorPatients = () => {
     const [error, setError] = useState(null);
 
     // Get current logged-in doctor ID (replace with actual auth implementation)
-    const currentDoctorId = "686e711ab7d2454771db1562";
+    const currentDoctorId = "687a3d2b001fbb29c0851cf7"; // ✅ CORRECT
+
 
     useEffect(() => {
         fetchPatientsByDoctor();

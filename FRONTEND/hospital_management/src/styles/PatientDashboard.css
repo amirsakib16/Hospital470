@@ -106,24 +106,23 @@
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Flex Sections Container - 2x2 Grid */
+/* ✅ UPDATED: Flex Sections Container - 1 Column for form, 1 Column for other boxes */
 .flex-sectionsP {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* 2 equal columns */
-    grid-template-rows: auto auto; /* 2 equal rows */
-    gap: 1.5rem;
+    grid-template-columns: 2fr 1fr; /* First column twice as wide as second */
+    grid-template-rows: repeat(2, 1fr); /* 2 equal height rows */
+    gap: 1rem;
     margin-top: 1rem;
-    padding-right: 45px;
-    padding-left: 45px;
-    max-width: 1000px;
+    padding: 45px;
+    max-width: 1200px;
     margin: 1rem auto;
+    height: calc(100vh - 200px); /* Take most of available height */
 }
 
 /* Base Flex Box Styling */
-/* Base flex box styling (keep as is) */
 .flex-boxP {
     border-radius: 10px;
-    padding: 2rem; /* This applies to all flex boxes by default */
+    padding: 2rem;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
     min-height: 100px;
     display: flex;
@@ -142,37 +141,37 @@
     text-align: center;
     border-radius: 12px;
     background-color: rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
 }
 
-/* Grid positioning for 2x2 layout */
+/* ✅ UPDATED: Grid positioning for 3 flex boxes */
+/* First flex box - Patient form (spans 2 rows in first column) */
 .flex-boxP:nth-child(1) {
     grid-column: 1;
-    grid-row: 1;
-    min-height: 300px !important;
-    /* Keeps the original 2rem padding for the patient form */
+    grid-row: 1 / 3; /* Spans from row 1 to row 2 */
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    text-align: left;
 }
 
+/* Second flex box - Medical Store (top right) */
 .flex-boxP:nth-child(2) {
     grid-column: 2;
     grid-row: 1;
-    min-height: 30px !important;
-    padding: 0.5rem !important; /* Reduced padding */
+    padding: 1rem;
+    min-height: auto;
 }
 
+/* Third flex box - Hospitals (bottom right) */
 .flex-boxP:nth-child(3) {
-    grid-column: 1;
-    grid-row: 2;
-    min-height: 300px !important;
-    padding: 0.5rem !important; /* Reduced padding */
-}
-
-.flex-boxP:nth-child(4) {
     grid-column: 2;
     grid-row: 2;
-    min-height: 300px !important;
-    padding: 0.5rem !important; /* Reduced padding */
+    padding: 1rem;
+    min-height: auto;
 }
-
 
 /* Patient Form Box Specific Styling */
 .patient-form-box {
@@ -344,7 +343,6 @@
 }
 
 /* Number Input Styling */
-/* Number Input Styling - Cross-browser compatible */
 .form-groupP input[type="number"] {
     appearance: textfield;
     -webkit-appearance: textfield;
@@ -355,13 +353,6 @@
 .form-groupP input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
     appearance: none;
-    margin: 0;
-}
-
-
-.form-groupP input[type="number"]::-webkit-outer-spin-button,
-.form-groupP input[type="number"]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
     margin: 0;
 }
 
@@ -395,23 +386,92 @@
     opacity: 0.8;
 }
 
-/* Box Logo Images */
-.box-logo-A {
-    width: 190px;
-    height: auto;
-    margin-bottom: 10px;
-}
-
+/* Box Logo Images - Adjusted for 2 boxes */
 .box-logo-MS {
-    width: 190px;
+    width: 150px;
     height: auto;
     margin-bottom: 10px;
+    max-height: 120px;
+    object-fit: contain;
 }
 
 .box-logo-H {
-    width: 210px;
+    width: 150px;
     height: auto;
     margin-bottom: 10px;
+    max-height: 120px;
+    object-fit: contain;
+}
+
+/* Hover effects for smaller boxes */
+.flex-boxP:nth-child(2):hover,
+.flex-boxP:nth-child(3):hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 10px 25px rgba(0, 255, 153, 0.4);
+}
+
+/* Box text styling */
+.flex-boxP p {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 0;
+    color: #ffffff;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+}
+
+/* Loading and error states */
+.loading-state {
+    padding: 1rem;
+    text-align: center;
+    color: #00ff99;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.loading-spinner {
+    width: 30px;
+    height: 30px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #00ff99;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.error-state {
+    padding: 1rem;
+    text-align: center;
+    color: #ff4444;
+}
+
+.error-message {
+    margin-bottom: 1rem;
+}
+
+.file-info {
+    display: block;
+    margin-top: 0.25rem;
+    color: #b0b0b0;
+    font-size: 0.8rem;
+}
+
+.doctor-count {
+    display: block;
+    margin-top: 0.25rem;
+    color: #b0b0b0;
+    font-size: 0.8rem;
+}
+
+.submit-buttonP:disabled,
+.sort-buttonP:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
 /* Sidebar Styling */
@@ -489,7 +549,21 @@
     z-index: 900;
 }
 
-/* Responsive Design */
+/* ✅ UPDATED: Responsive Design for 3 boxes */
+@media (max-width: 1024px) {
+    .flex-sectionsP {
+        grid-template-columns: 1.5fr 1fr;
+        height: auto;
+        min-height: 70vh;
+    }
+    
+    .box-logo-MS,
+    .box-logo-H {
+        width: 120px;
+        max-height: 100px;
+    }
+}
+
 @media (max-width: 768px) {
     .logo-imageP {
         height: 25px;
@@ -509,20 +583,27 @@
         right: -280px;
     }
 
+    /* Mobile layout - stack vertically */
     .flex-sectionsP {
         grid-template-columns: 1fr; /* Single column on mobile */
-        grid-template-rows: auto auto auto auto; /* 4 rows */
-        padding-right: 15px;
-        padding-left: 15px;
+        grid-template-rows: auto auto auto; /* 3 rows */
+        padding: 15px;
+        height: auto;
     }
 
-    .flex-boxP:nth-child(1),
-    .flex-boxP:nth-child(2),
-    .flex-boxP:nth-child(3),
-    .flex-boxP:nth-child(4) {
-        grid-column: 1 !important;
-        grid-row: auto !important;
-        min-height: 200px !important;
+    .flex-boxP:nth-child(1) {
+        grid-column: 1;
+        grid-row: 1; /* Reset spanning on mobile */
+    }
+
+    .flex-boxP:nth-child(2) {
+        grid-column: 1;
+        grid-row: 2;
+    }
+
+    .flex-boxP:nth-child(3) {
+        grid-column: 1;
+        grid-row: 3;
     }
 
     .patient-form-box {
@@ -546,6 +627,12 @@
         flex-direction: column;
         gap: 0.5rem;
     }
+    
+    .box-logo-MS,
+    .box-logo-H {
+        width: 100px;
+        max-height: 80px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -565,6 +652,16 @@
     
     .submit-buttonP {
         padding: 1rem;
+        font-size: 1rem;
+    }
+    
+    .box-logo-MS,
+    .box-logo-H {
+        width: 80px;
+        max-height: 60px;
+    }
+    
+    .flex-boxP p {
         font-size: 1rem;
     }
 }

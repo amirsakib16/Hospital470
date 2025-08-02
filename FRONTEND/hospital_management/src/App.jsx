@@ -6,6 +6,8 @@ import RoleSelect from "./components/RoleSelect";
 import PatientDashboard from "./components/PatientDashboard";
 import DoctorAppoinment from "./components/DoctorAppoinment";
 import MedicineList from "./components/MedicineList";
+import PatientLogin from './components/PatientLogin';
+import DoctorList from "./components/DoctorList";
 const App = () => {
   return (
     <Router>
@@ -13,10 +15,12 @@ const App = () => {
       <Routes>
         <Route path="/" element={<RoleSelect />} />
         <Route path="/about" element={<About />} />
-        <Route path="/home" element={<Home />} />
+        <Route path="/homepage" element={<Home />} />
         <Route path="/pdash" element={<PatientDashboard />} />
         <Route path="/dapp" element={<DoctorAppoinment />} />
         <Route path="/med" element={<MedicineList />} />
+        <Route path="/patientLogin" element={<PatientLogin />} />
+        <Route path="/alldoc" element={<DoctorList />} />
       </Routes>
     </Router>
   );
