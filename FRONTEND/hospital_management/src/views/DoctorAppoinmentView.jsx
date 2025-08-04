@@ -5,9 +5,13 @@ const DoctorPatients = () => {
     const [patients, setPatients] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [activeFeedbackId, setActiveFeedbackId] = useState(null);
+    const [feedbackText, setFeedbackText] = useState('');
+    const [submitStatus, setSubmitStatus] = useState('');
+
 
     // Get current logged-in doctor ID (replace with actual auth implementation)
-    const currentDoctorId = "687a3d2b001fbb29c0851cf7"; // ✅ CORRECT
+    const currentDoctorId = "688e902029dafca8fb5c5e5b"; // ✅ CORRECT
 
 
     useEffect(() => {
@@ -79,6 +83,34 @@ const DoctorPatients = () => {
             </div>
         );
     }
+    const submitFeedback = async (patientId) => {
+        if (!feedbackText.trim()) return;
+
+        try {
+            const response = await fetch(`http://localhost:5000/api/feedback`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    patientId,
+                    doctorId: currentDoctorId,
+                    feedback: feedbackText,
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to submit feedback');
+            }
+
+            setSubmitStatus('Feedback submitted successfully!');
+            setFeedbackText('');
+            setActiveFeedbackId(null);
+
+            setTimeout(() => setSubmitStatus(''), 3000);
+        } catch (error) {
+            console.error('Error submitting feedback:', error);
+            setSubmitStatus('Failed to submit feedback');
+        }
+    };
 
     return (
         <div className="doctor-patients-container">
@@ -146,6 +178,30 @@ const DoctorPatients = () => {
                                     <span>No report</span>
                                 )}
                             </div>
+                            <button
+                                className="feedback-btn"
+                                onClick={() =>
+                                    setActiveFeedbackId(activeFeedbackId === patient._id ? null : patient._id)
+                                }
+                            >
+                                Feedback
+                            </button>
+
+                            {activeFeedbackId === patient._id && (
+                                <div className="feedback-form">
+                                    <textarea
+                                        value={feedbackText}
+                                        onChange={(e) => setFeedbackText(e.target.value)}
+                                        placeholder="Write your feedback here..."
+                                        rows={4}
+                                    />
+                                    <button className="submit-feedback-btn" onClick={() => submitFeedback(patient._id)}>
+                                        Submit
+                                    </button>
+                                    {submitStatus && <p className="status-msg">{submitStatus}</p>}
+                                </div>
+                            )}
+
 
                         </div>
                     ))

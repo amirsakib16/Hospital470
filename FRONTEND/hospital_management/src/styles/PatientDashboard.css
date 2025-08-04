@@ -109,14 +109,17 @@
 /* ✅ UPDATED: Flex Sections Container - 1 Column for form, 1 Column for other boxes */
 .flex-sectionsP {
     display: grid;
-    grid-template-columns: 2fr 1fr; /* First column twice as wide as second */
-    grid-template-rows: repeat(2, 1fr); /* 2 equal height rows */
+    grid-template-columns: 3fr 1fr;
+    /* First column twice as wide as second */
+    grid-template-rows: repeat(2, 2fr);
+    /* 2 equal height rows */
     gap: 1rem;
     margin-top: 1rem;
     padding: 45px;
     max-width: 1200px;
     margin: 1rem auto;
-    height: calc(100vh - 200px); /* Take most of available height */
+    height: calc(100vh - 200px);
+    /* Take most of available height */
 }
 
 /* Base Flex Box Styling */
@@ -143,13 +146,19 @@
     background-color: rgba(255, 255, 255, 0.1);
     transition: all 0.3s ease;
 }
+.user-infoP {
+    color: #fff;
+    font-weight: bold;
+    margin-right: 20px;
+}
 
 /* ✅ UPDATED: Grid positioning for 3 flex boxes */
 /* First flex box - Patient form (spans 2 rows in first column) */
 .flex-boxP:nth-child(1) {
     grid-column: 1;
-    grid-row: 1 / 3; /* Spans from row 1 to row 2 */
-    padding: 2rem;
+    grid-row: 1/ 3;
+    /* Spans from row 1 to row 2 */
+    padding: 4rem;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -208,8 +217,10 @@
 .patient-form {
     width: 100%;
     display: grid;
-    grid-template-columns: 1fr 1fr; /* Two columns side by side */
-    gap: 1rem 2rem; /* Row gap: 1rem, Column gap: 2rem */
+    grid-template-columns: 1fr 1fr;
+    /* Two columns side by side */
+    gap: 1rem 2rem;
+    /* Row gap: 1rem, Column gap: 2rem */
     margin-top: 1rem;
 }
 
@@ -292,7 +303,8 @@
 
 /* Submit Button - Spans Both Columns */
 .submit-buttonP {
-    grid-column: 1 / span 2; /* Spans both columns */
+    grid-column: 1 / span 2;
+    /* Spans both columns */
     padding: 0.5rem;
     background-color: #5dcefb;
     color: #121212;
@@ -440,8 +452,13 @@
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 .error-state {
@@ -556,7 +573,7 @@
         height: auto;
         min-height: 70vh;
     }
-    
+
     .box-logo-MS,
     .box-logo-H {
         width: 120px;
@@ -585,15 +602,18 @@
 
     /* Mobile layout - stack vertically */
     .flex-sectionsP {
-        grid-template-columns: 1fr; /* Single column on mobile */
-        grid-template-rows: auto auto auto; /* 3 rows */
+        grid-template-columns: 1fr;
+        /* Single column on mobile */
+        grid-template-rows: auto auto auto;
+        /* 3 rows */
         padding: 15px;
         height: auto;
     }
 
     .flex-boxP:nth-child(1) {
         grid-column: 1;
-        grid-row: 1; /* Reset spanning on mobile */
+        grid-row: 1;
+        /* Reset spanning on mobile */
     }
 
     .flex-boxP:nth-child(2) {
@@ -615,19 +635,21 @@
     }
 
     .patient-form {
-        grid-template-columns: 1fr; /* Single column on mobile */
+        grid-template-columns: 1fr;
+        /* Single column on mobile */
         gap: 1rem;
     }
-    
+
     .submit-buttonP {
-        grid-column: 1; /* Single column span on mobile */
+        grid-column: 1;
+        /* Single column span on mobile */
     }
 
     .doctor-select-containerP {
         flex-direction: column;
         gap: 0.5rem;
     }
-    
+
     .box-logo-MS,
     .box-logo-H {
         width: 100px;
@@ -639,29 +661,132 @@
     .patient-form-box {
         padding: 1rem;
     }
-    
+
     .form-titleP {
         font-size: 1.4rem;
     }
-    
+
     .form-groupP input,
     .form-groupP select {
         padding: 0.6rem;
         font-size: 0.9rem;
     }
-    
+
     .submit-buttonP {
         padding: 1rem;
         font-size: 1rem;
     }
-    
+
     .box-logo-MS,
     .box-logo-H {
         width: 80px;
         max-height: 60px;
     }
-    
+
     .flex-boxP p {
         font-size: 1rem;
     }
+}
+
+/* File Browse Button Style */
+.form-groupP input[type="file"]::-webkit-file-upload-button,
+.form-groupP input[type="file"]::file-selector-button {
+    background-color: #5dcefb;
+    color: #121212;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-right: 1rem;
+    transition: all 0.3s ease;
+    font-family: 'Orbitron', 'Arial', sans-serif;
+    box-shadow: 0 0 10px rgba(0, 255, 153, 0.3);
+}
+
+.form-groupP input[type="file"]::-webkit-file-upload-button:hover,
+.form-groupP input[type="file"]::file-selector-button:hover {
+    background-color: #00e5ff;
+    transform: translateY(-2px);
+    color: #000;
+    box-shadow: 0 0 12px rgba(0, 255, 153, 0.6);
+}
+
+.form-groupP input[type="file"]::-webkit-file-upload-button:active,
+.form-groupP input[type="file"]::file-selector-button:active {
+    transform: translateY(0);
+    box-shadow: 0 0 5px rgba(0, 255, 153, 0.4);
+}
+
+.doctor-response-buttonP:hover {
+    background-color: #8ef86b;
+}
+
+.doctor-response-buttonP {
+    width: 190px;
+    cursor: "pointer";
+    background-color: #a8ffad;
+    border: none;
+    padding: 15px;
+    border-radius: 8px;
+    font-weight: 900;
+
+}
+
+.custom-alert-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.alert-content {
+    background-color: rgba(8, 96, 87, 0.458);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    padding: 20px 30px;
+    border-radius: 10px;
+    color: rgb(208, 255, 0);
+    font-weight: 600;
+    width: 90%;
+    max-width: 500px;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.alert-content h3 {
+    margin-top: 0;
+    font-size: 1.2rem;
+    color: #fffefe;
+}
+
+.alert-content pre {
+    white-space: pre-wrap;
+    word-break: break-word;
+    margin: 1rem 0;
+}
+
+.alert-content button {
+    padding: 8px 16px;
+    background-color: #2196f3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.feedback {
+    color: white;
+    font-size: x-large;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
 }

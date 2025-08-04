@@ -337,3 +337,40 @@
         flex: none;
     }
 }
+.feedback-form {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.feedback-form textarea {
+    resize: vertical;
+    padding: 8px;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    margin-bottom: 6px;
+    font-family: inherit;
+    font-size: 14px;
+}
+
+.feedback-btn, .submit-feedback-btn {
+    padding: 12px;
+    margin-top: 4px;
+    background-color: #7ae5fa;
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.feedback-btn:hover, .submit-feedback-btn:hover {
+    background-color: #a8ffac;
+}
+
+.status-msg {
+    color: #a1ffa1;
+    font-size: 13px;
+    margin-top: 9px;
+}

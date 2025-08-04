@@ -8,6 +8,7 @@ router.get('/doctor/:doctorId', doctorAppoinmentController.getPatientsByDoctor);
 // GET all patients
 router.get('/', doctorAppoinmentController.getAllPatients);
 
+
 // Download patient document
 router.get('/download/:patientId', doctorAppoinmentController.downloadPatientDocument);
 

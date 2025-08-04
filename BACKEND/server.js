@@ -8,7 +8,7 @@ const patientRecordRoutes = require("./routes/patientRecordRoutes");
 const patientAppointmentRoutes = require("./routes/doctorAppoinmentRoutes");
 const medicineRoutes = require("./routes/medicineRoutes");
 const authRoutes = require('./routes/authRoutes');
-
+const feedbackRoutes = require('./routes/feedbackRoutes');
 const app = express();
 const PORT = 5000;
 
@@ -48,6 +48,7 @@ app.use("/documents", express.static(path.join(__dirname, "uploads", "documents"
 app.use('/api/auth', authRoutes); 
 // Add to your existing server.js
 app.use("/api/doctors", require("./routes/doctorRoutes"));
+app.use('/api/feedback', feedbackRoutes);
 
 // CRITICAL: Proper images route with CORS headers
 app.use('/images', (req, res, next) => {

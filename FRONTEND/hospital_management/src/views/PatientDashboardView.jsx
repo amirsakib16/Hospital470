@@ -3,10 +3,18 @@ import "../styles/PatientDashboard.css";
 
 const Dashboard = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
-    const [doctors, setDoctors] = useState([]); // ✅ Initialize as empty array
+    const [doctors, setDoctors] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null); // ✅ Add error state
-    
+    const [error, setError] = useState(null);
+    const [feedbacks, setFeedbacks] = useState([]);
+    const [showFeedbackModal, setShowFeedbackModal] = useState(false);
+    const [feedbackText, setFeedbackText] = useState('');
+    const [patientEmail, setPatientEmail] = useState('');
+
+    // Modal state
+    const [showModal, setShowModal] = useState(false);
+    const [sortedDoctorListText, setSortedDoctorListText] = useState('');
+
     // Patient form state
     const [patientName, setPatientName] = useState('');
     const [age, setAge] = useState('');
@@ -14,59 +22,56 @@ const Dashboard = () => {
     const [selectedDoctor, setSelectedDoctor] = useState('');
     const [time, setTime] = useState('');
     const [patientType, setPatientType] = useState('New');
-    const [submitting, setSubmitting] = useState(false); // ✅ Add submitting state
+    const [submitting, setSubmitting] = useState(false);
+    const patientId = "688f892ab272b80408b51448"; // Replace this with actual dynamic ID
 
     const toggleSidebar = () => {
         setSidebarOpen(!sidebarOpen);
     };
 
-    // ✅ Enhanced fetch doctors function
     useEffect(() => {
         const fetchDoctors = async () => {
             try {
                 setLoading(true);
                 setError(null);
-                
-                console.log('Fetching doctors...');
+
                 const response = await fetch('http://localhost:5000/api/doctors');
-                
+
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
-                
+
                 const data = await response.json();
-                console.log('Raw API response:', data);
-                
-                // ✅ Handle different response formats
+
                 let doctorsArray = [];
-                
+
                 if (data.success && Array.isArray(data.data)) {
-                    // New API format: { success: true, data: [...] }
                     doctorsArray = data.data;
                 } else if (Array.isArray(data)) {
-                    // Old API format: [...]
                     doctorsArray = data;
                 } else {
-                    console.warn('Unexpected API response format:', data);
                     throw new Error('Invalid API response format');
                 }
-                
-                console.log('Processed doctors array:', doctorsArray);
+
                 setDoctors(doctorsArray);
                 setLoading(false);
-                
             } catch (error) {
-                console.error('Error fetching doctors:', error);
                 setError(`Failed to fetch doctors: ${error.message}`);
-                setDoctors([]); // ✅ Ensure it's always an array
+                setDoctors([]);
                 setLoading(false);
             }
         };
 
         fetchDoctors();
     }, []);
+    useEffect(() => {
+        const session = localStorage.getItem('userSession');
+        if (session) {
+            const parsedSession = JSON.parse(session);
+            setPatientEmail(parsedSession.email);
+        }
+    }, []);
 
-    // ✅ Enhanced sort function
     const handleSortClick = () => {
         if (!Array.isArray(doctors) || doctors.length === 0) {
             alert('No doctors available to sort');
@@ -74,7 +79,7 @@ const Dashboard = () => {
         }
 
         const sortChoice = prompt(`Sort by:\n1. Department (Ascending)\n2. Department (Descending)\n\nEnter 1 or 2:`);
-        
+
         if (!sortChoice || (sortChoice !== '1' && sortChoice !== '2')) {
             alert('Invalid selection');
             return;
@@ -92,14 +97,43 @@ const Dashboard = () => {
         sortedDoctors.forEach((doctor, index) => {
             doctorsList += `${index + 1}. ${doctor.doctorName} - ${doctor.department}\n`;
         });
-        
-        alert(doctorsList);
+
+        setSortedDoctorListText(doctorsList);
+        setShowModal(true);
     };
 
-    // ✅ Enhanced form submission
+
+    const handleDoctorResponse = async () => {
+        try {
+            const response = await fetch(`http://localhost:5000/api/feedback/${patientId}`);
+            if (!response.ok) {
+                throw new Error('Failed to fetch feedback');
+            }
+
+            const data = await response.json();
+
+            if (data.length === 0) {
+                setFeedbackText("No feedback received yet.");
+            } else {
+                let formattedText = "Your Feedback(s):\n\n";
+                data.forEach((item, index) => {
+                    formattedText += `${index + 1}. Feedback: ${item.feedback}\nSubmitted At: ${new Date(item.submittedAt).toLocaleString()}\n\n`;
+                });
+                setFeedbackText(formattedText);
+            }
+
+            setShowFeedbackModal(true);
+        } catch (error) {
+            setFeedbackText("Error fetching feedback: " + error.message);
+            setShowFeedbackModal(true);
+        }
+    };
+
+
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
         if (!patientName || !age || !documentFile || !selectedDoctor) {
             alert('Please fill all required fields');
             return;
@@ -124,39 +158,28 @@ const Dashboard = () => {
 
             if (response.ok) {
                 alert('Patient record saved successfully!');
-                // Reset form
                 setPatientName('');
                 setAge('');
                 setDocumentFile(null);
                 setSelectedDoctor('');
                 setTime('');
                 setPatientType('New');
-                
-                // Reset file input
+
                 const fileInput = document.querySelector('input[type="file"]');
                 if (fileInput) fileInput.value = '';
-                
             } else {
                 alert(`Error: ${result.message}`);
             }
         } catch (error) {
-            console.error('Error saving patient record:', error);
             alert('Server error occurred. Please try again.');
         } finally {
             setSubmitting(false);
         }
     };
 
-    // ✅ Function to render doctor options safely
     const renderDoctorOptions = () => {
-        if (!Array.isArray(doctors)) {
-            console.warn('Doctors is not an array:', doctors);
-            return <option value="">No doctors available</option>;
-        }
-
-        if (doctors.length === 0) {
-            return <option value="">No doctors available</option>;
-        }
+        if (!Array.isArray(doctors)) return <option value="">No doctors available</option>;
+        if (doctors.length === 0) return <option value="">No doctors available</option>;
 
         return doctors.map((doctor) => (
             <option key={doctor._id} value={doctor._id}>
@@ -168,6 +191,10 @@ const Dashboard = () => {
     return (
         <div className={`dashboard-containerP ${sidebarOpen ? 'sidebar-openP' : ''}`}>
             <nav className="top-navbarP">
+                <div className="user-infoP">
+                    <span>Welcome, {patientEmail}</span>
+                </div>
+
                 <div className="logoP">
                     <img src="/logo-removebg-preview.png" alt="Company Logo" className="logo-imageP" />
                     <span className="logo-textP">MediLink</span>
@@ -180,23 +207,19 @@ const Dashboard = () => {
             <div className="main-contentP">
                 <div className="content-areaP">
                     <div className="flex-sectionsP">
-                        {/* Patient Registration Form */}
                         <div className="flex-boxP patient-form-box">
-                            <h3>Patient Registration</h3>
-                            
-                            {/* ✅ Show loading/error states */}
+
+
                             {loading && (
                                 <div className="loading-state">
                                     <p>Loading doctors...</p>
                                 </div>
                             )}
-                            
+
                             {error && (
                                 <div className="error-state">
                                     <p className="error-message">{error}</p>
-                                    <button onClick={() => window.location.reload()}>
-                                        Retry
-                                    </button>
+                                    <button onClick={() => window.location.reload()}>Retry</button>
                                 </div>
                             )}
 
@@ -236,11 +259,7 @@ const Dashboard = () => {
                                         disabled={submitting}
                                         required
                                     />
-                                    {documentFile && (
-                                        <small className="file-info">
-                                            Selected: {documentFile.name}
-                                        </small>
-                                    )}
+                                    {documentFile && <small className="file-info">Selected: {documentFile.name}</small>}
                                 </div>
 
                                 <div className="form-groupP">
@@ -255,9 +274,9 @@ const Dashboard = () => {
                                             <option value="">Choose a doctor</option>
                                             {renderDoctorOptions()}
                                         </select>
-                                        <button 
-                                            type="button" 
-                                            onClick={handleSortClick} 
+                                        <button
+                                            type="button"
+                                            onClick={handleSortClick}
                                             className="sort-buttonP"
                                             disabled={submitting || loading || !Array.isArray(doctors) || doctors.length === 0}
                                         >
@@ -291,33 +310,25 @@ const Dashboard = () => {
                                     </select>
                                 </div>
 
-                                <button 
-                                    type="submit" 
-                                    className="submit-buttonP"
-                                    disabled={submitting || loading}
-                                >
+                                <button type="submit" className="submit-buttonP" disabled={submitting || loading}>
                                     {submitting ? 'Submitting...' : 'Submit Registration'}
                                 </button>
+                                <button
+                                    onClick={handleDoctorResponse}
+                                    className="doctor-response-buttonP">
+                                    Doctor Response
+                                </button>
+
                             </form>
                         </div>
 
-                        {/* Other flex boxes */}
-
                         <div className="flex-boxP">
-                            <img
-                                src="/IMG_6846-removebg-preview.png"
-                                alt="Medical Store"
-                                className="box-logo-MS"
-                            />
+                            <img src="/IMG_6846-removebg-preview.png" alt="Medical Store" className="box-logo-MS" />
                             <p>Medical Store</p>
                         </div>
 
                         <div className="flex-boxP">
-                            <img
-                                src="/IMG_6847-removebg-preview.png"
-                                alt="Hospitals"
-                                className="box-logo-H"
-                            />
+                            <img src="/IMG_6847-removebg-preview.png" alt="Hospitals" className="box-logo-H" />
                             <p>Hospitals</p>
                         </div>
                     </div>
@@ -342,6 +353,28 @@ const Dashboard = () => {
 
                 {sidebarOpen && <div className="overlayP" onClick={toggleSidebar}></div>}
             </div>
+
+            {/* Modal for sorted doctor list */}
+            {showModal && (
+                <div className="custom-alert-modal">
+                    <div className="alert-content">
+                        <h3>Sorted Doctor List</h3>
+                        <pre>{sortedDoctorListText}</pre>
+                        <button onClick={() => setShowModal(false)}>Close</button>
+                    </div>
+                </div>
+            )}
+
+            {showFeedbackModal && (
+                <div className="custom-alert-modal">
+                    <div className="alert-content">
+                        <div className='feedback'>Doctors Feedback</div>
+                        <pre>{feedbackText}</pre>
+                        <button onClick={() => setShowFeedbackModal(false)}>Close</button>
+                    </div>
+                </div>
+            )}
+
         </div>
     );
 };
