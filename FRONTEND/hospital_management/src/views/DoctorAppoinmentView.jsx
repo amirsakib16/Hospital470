@@ -9,9 +9,7 @@ const DoctorPatients = () => {
     const [feedbackText, setFeedbackText] = useState('');
     const [submitStatus, setSubmitStatus] = useState('');
 
-
-    // Get current logged-in doctor ID (replace with actual auth implementation)
-    const currentDoctorId = "688e902029dafca8fb5c5e5b"; // ✅ CORRECT
+    const currentDoctorId = "688e902029dafca8fb5c5e5b"; 
 
 
     useEffect(() => {
@@ -38,11 +36,8 @@ const DoctorPatients = () => {
         }
     };
 
-
-
     const downloadPDF = async (patientId, patientName) => {
         try {
-            // Use appointments endpoint for consistency
             const response = await fetch(`http://localhost:5000/api/appointments/download/${patientId}`);
 
             if (!response.ok) {

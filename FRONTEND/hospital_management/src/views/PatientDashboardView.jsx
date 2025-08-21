@@ -23,7 +23,7 @@ const Dashboard = () => {
     const [time, setTime] = useState('');
     const [patientType, setPatientType] = useState('New');
     const [submitting, setSubmitting] = useState(false);
-    const patientId = "688f892ab272b80408b51448"; // Replace this with actual dynamic ID
+    const patientId = "68908d340066669ea147d2e0"; // Replace this with actual dynamic ID
 
     const toggleSidebar = () => {
         setSidebarOpen(!sidebarOpen);

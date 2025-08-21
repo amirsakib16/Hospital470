@@ -12,10 +12,8 @@ const feedbackRoutes = require('./routes/feedbackRoutes');
 const app = express();
 const PORT = 5000;
 
-// Connect to MongoDB
 connectDB();
 
-// Enhanced CORS configuration
 app.use(cors({
     origin: ['http://localhost:3000', 'http://localhost:5173', 'http://localhost:5174'],
     credentials: true,
@@ -27,7 +25,6 @@ app.use(express.json());
 
 const fs = require("fs");
 
-// Ensure all directories exist
 const uploadPath = path.join(__dirname, "uploads");
 const documentsPath = path.join(__dirname, "uploads", "documents");
 const imagesPath = path.join(__dirname, "images");
@@ -42,15 +39,12 @@ if (!fs.existsSync(imagesPath)) {
     fs.mkdirSync(imagesPath, { recursive: true });
 }
 
-// Static file serving with proper CORS headers
 app.use("/uploads", express.static("uploads"));
 app.use("/documents", express.static(path.join(__dirname, "uploads", "documents")));
 app.use('/api/auth', authRoutes); 
-// Add to your existing server.js
 app.use("/api/doctors", require("./routes/doctorRoutes"));
 app.use('/api/feedback', feedbackRoutes);
 
-// CRITICAL: Proper images route with CORS headers
 app.use('/images', (req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET');
@@ -59,19 +53,16 @@ app.use('/images', (req, res, next) => {
     next();
 }, express.static(path.join(__dirname, 'images')));
 
-// API Routes
 app.use("/api/doctors", doctorRoutes);
 app.use("/api/patientrecords", patientRecordRoutes);
 app.use("/api/appointments", patientAppointmentRoutes);
 app.use("/api/medicines", medicineRoutes);
 app.use('/api/auth', authRoutes);
 
-// Test endpoints
 app.get("/", (req, res) => {
     res.send({ message: "Backend is running!" });
 });
 
-// Test images directory
 app.get('/test-images', (req, res) => {
     const imagesDir = path.join(__dirname, 'images');
     fs.readdir(imagesDir, (err, files) => {

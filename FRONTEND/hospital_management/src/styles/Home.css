@@ -146,7 +146,6 @@
 
 .profile-section {
     flex: 0 0 200px;
-    /* fixed square box */
     height: 200px;
     display: flex;
     flex-direction: column;
@@ -161,7 +160,6 @@
     height: 100%;
     object-fit: cover;
     border-radius: 0;
-    /* 🔴 This removes the round shape */
     border: 1px solid #00ff99;
     background-color: #000;
     border-radius: 15px;
