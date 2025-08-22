@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Doctor Recommendations</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+</head>
+<body>
+    <div class="container">
+        <h1>Doctor Recommendations</h1>
+
+        <form method="POST" action="/recommend_doctor">
+            <label for="symptoms">Enter your symptoms:</label><br />
+            <textarea id="symptoms" name="symptoms" rows="4" cols="50" placeholder="Describe your symptoms here..."></textarea><br />
+            <button type="submit">Find Doctors</button>
+        </form>
+
+        {% if doctors %}
+        <div class="doctor-list">
+            {% for doctor in doctors %}
+            <div class="doctor-card">
+                <div class="doctor-info">
+                    <h2>{{ doctor.doctorName }}</h2>
+                    <p><strong>Department:</strong> {{ doctor.department }}</p>
+                    <p><strong>Hospital:</strong> {{ doctor.hospital }}</p>
+                    <p><strong>Degree:</strong> {{ doctor.degree }}</p>
+                    <p><strong>Phone:</strong> {{ doctor.phoneNumber }}</p>
+                    <p><strong>Email:</strong> {{ doctor.email }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p>No doctors to show. Enter symptoms and search.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
