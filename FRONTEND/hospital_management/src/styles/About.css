@@ -1,5 +1,5 @@
 body {
-    background-image: url("E:\Hospital470\FRONTEND\hospital_management\public\download.jpg"); /* ✅ Root-relative path (public/) */
+    background-image: url("E:\Hospital470\FRONTEND\hospital_management\public\backgroundimg.jpeg"); /* ✅ Root-relative path (public/) */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

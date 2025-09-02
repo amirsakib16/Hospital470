@@ -19,7 +19,7 @@ exports.getAllMedicines = async (req, res) => {
 exports.getMedicineById = async (req, res) => {
     try {
         const { medicineId } = req.params;
-        
+
         const medicine = await Medicine.findById(medicineId);
         if (!medicine) {
             return res.status(404).json({ message: "Medicine not found" });
@@ -32,6 +32,23 @@ exports.getMedicineById = async (req, res) => {
     }
 };
 
+// SEARCH medicines by name (partial match)
+exports.searchMedicinesByName = async (req, res) => {
+    try {
+        const { q } = req.query;
+        if (!q) {
+            return res.status(400).json({ message: "Query parameter 'q' is required" });
+        }
+        const regex = new RegExp(q, 'i'); // case-insensitive match
+        const medicines = await Medicine.find({ name: regex }).sort({ id: 1 });
+        res.status(200).json(medicines);
+    } catch (error) {
+        console.error('Error searching medicines:', error);
+        res.status(500).json({ message: error.message });
+    }
+};
+
+
 // CREATE new medicine
 exports.createMedicine = async (req, res) => {
     try {
@@ -39,8 +56,8 @@ exports.createMedicine = async (req, res) => {
 
         // Basic validation
         if (!id || !name) {
-            return res.status(400).json({ 
-                message: "Required fields: id, name" 
+            return res.status(400).json({
+                message: "Required fields: id, name"
             });
         }
 
@@ -62,7 +79,7 @@ exports.createMedicine = async (req, res) => {
 exports.updateMedicine = async (req, res) => {
     try {
         const { medicineId } = req.params;
-        
+
         const updatedMedicine = await Medicine.findByIdAndUpdate(
             medicineId,
             req.body,
@@ -84,9 +101,9 @@ exports.updateMedicine = async (req, res) => {
 exports.deleteMedicine = async (req, res) => {
     try {
         const { medicineId } = req.params;
-        
+
         const deletedMedicine = await Medicine.findByIdAndDelete(medicineId);
-        
+
         if (!deletedMedicine) {
             return res.status(404).json({ message: "Medicine not found" });
         }

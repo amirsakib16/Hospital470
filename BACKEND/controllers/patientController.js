@@ -46,7 +46,8 @@ exports.createPatient = async (req, res) => {
     }
 };
 
-// Add your GET methods etc. as needed
+// Add your GET methods etc. as needel
+
 
 
 // GET all patients

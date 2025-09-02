@@ -1,143 +1,50 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../styles/LoginPage.css';
-
-const LoginPage = () => {
+import "../styles/PatientLogin.css"
+const Login = () => {
     const [email, setEmail] = useState('');
-    const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
-    const handleLogin = async (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-
-        if (!email.trim()) {
-            setError('Email is required');
-            return;
-        }
-
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-            setError('Please enter a valid email address');
-            return;
-        }
+        setError('');
 
         try {
-            setLoading(true);
-            setError('');
-
-            const response = await fetch('http://localhost:5000/api/auth/login', {
+            const response = await fetch('http://localhost:5000/api/login/patientlog', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email }),
             });
-
-            // Safely parse the response
-            const rawText = await response.text();
-            let data;
-            try {
-                data = JSON.parse(rawText);
-            } catch (parseError) {
-                console.error("❌ Failed to parse JSON:", parseError);
-                console.error("🚨 Raw server response:", rawText);
-                setError("Invalid server response. Please contact support.");
-                return;
-            }
+            const data = await response.json();
 
             if (response.ok) {
-                localStorage.setItem('userSession', JSON.stringify({
-                    email: data.patient.email,
-                    patientId: data.patient._id,
-                    patientName: data.patient.patientName,
-                    age: data.patient.age,
-                    doctorId: data.patient.doctorId,
-                    documentPath: data.patient.documentPath,
-                    needsProfileCompletion: data.patient.needsProfileCompletion || false,
-                    isLoggedIn: true,
-                    loginTime: new Date().toISOString()
-                }));
-
-                if (data.patient.needsProfileCompletion) {
-                    navigate('/pdash');
-                } else {
-                    navigate('/dashboard');
-                }
+                localStorage.setItem('userSession', JSON.stringify(data.patient));
+                navigate('/pdash'); // redirect to dashboard
             } else {
                 setError(data.message || 'Login failed');
             }
-        } catch (error) {
-            console.error('Login error:', error);
-            setError('Network error. Please try again.');
-        } finally {
-            setLoading(false);
+        } catch (err) {
+            setError('Server error, please try again later');
         }
     };
 
     return (
-        <div className="login-page-container">
-            {/* Video Background */}
-            <video 
-                className="video-background"
-                autoPlay 
-                muted 
-                loop 
-                playsInline
-            >
-                <source src="/ScreenRecording_07-18-2025 1-33-52 am_1.mp4" type="video/mp4" />
-                {/* Fallback image if video fails to load */}
-            </video>
-
-            {/* Dark Overlay for better text readability */}
-            <div className="video-overlay"></div>
-
-            <div className="login-card">
-                <div className="login-header">
-                    <div className="logo">
-                        <img src="/logo-removebg-preview.png" alt="MediLink Logo" className="logo-image" />
-                        <h1>MediLink</h1>
-                    </div>
-                    <p>Welcome! Please enter your email to continue</p>
-                </div>
-
-                <form onSubmit={handleLogin} className="login-form">
-                    <div className="form-group">
-                        <label htmlFor="email">Email Address</label>
-                        <input
-                            type="email"
-                            id="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            placeholder="Enter your email"
-                            className={error ? 'error' : ''}
-                            required
-                        />
-                        {error && <span className="error-message">{error}</span>}
-                    </div>
-
-                    <button
-                        type="submit"
-                        className="login-button"
-                        disabled={loading}
-                    >
-                        {loading ? (
-                            <>
-                                <div className="spinner"></div>
-                                Logging in...
-                            </>
-                        ) : (
-                            'Login'
-                        )}
-                    </button>
-                </form>
-
-                <div className="login-footer">
-                    <p>New to MediLink? Your account will be created automatically.</p>
-                </div>
-            </div>
+        <div className="loginFormContainer">
+            <form className = "plog" onSubmit={handleSubmit}>
+                <h2>Login</h2>
+                {error && <p style={{ color: 'red' }}>{error}</p>}
+                <input
+                    type="email"
+                    placeholder="Enter email"
+                    value={email}
+                    onChange={e => setEmail(e.target.value)}
+                    required
+                />
+                <button type="submit">Login</button>
+            </form>
         </div>
     );
 };
 
-export default LoginPage;
+export default Login;

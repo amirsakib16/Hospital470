@@ -9,6 +9,7 @@ const patientAppointmentRoutes = require("./routes/doctorAppoinmentRoutes");
 const medicineRoutes = require("./routes/medicineRoutes");
 const authRoutes = require('./routes/authRoutes');
 const feedbackRoutes = require('./routes/feedbackRoutes');
+const patientRoutes = require('./routes/patientRoutes');
 const app = express();
 const PORT = 5000;
 
@@ -58,6 +59,8 @@ app.use("/api/patientrecords", patientRecordRoutes);
 app.use("/api/appointments", patientAppointmentRoutes);
 app.use("/api/medicines", medicineRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/register', patientRoutes);
+app.use('/api/login', patientRoutes);
 
 app.get("/", (req, res) => {
     res.send({ message: "Backend is running!" });

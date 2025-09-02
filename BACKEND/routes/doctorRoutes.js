@@ -5,6 +5,7 @@ const path = require("path");
 const fs = require("fs");
 const Doctor = require("../models/doctorModel");
 const doctorController = require("../controllers/doctorController"); // ✅ Added missing import
+const recommendDoctor  = require("../controllers/doctorController");
 
 // Ensure uploads directory exists
 const uploadDir = path.join(__dirname, '..', 'uploads');
@@ -97,5 +98,8 @@ router.get("/", doctorController.getAllDoctors);
 
 // GET doctor by ID (must be last to avoid conflicts)
 router.get("/:id", doctorController.getDoctorById);
+
+
+router.post("/recommend", doctorController.recommendDoctor);
 
 module.exports = router;

@@ -1,0 +1,67 @@
+/* PatientRegister.css */
+
+body,
+html {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-size: cover;
+}
+
+.patientregform {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    /* Full screen height */
+}
+
+.pregF {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 30px;
+    width: 350px;
+    background: rgba(255, 255, 255, 0.15);
+    /* Transparent effect */
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(8px);
+    /* Glassmorphism effect */
+}
+
+.reg {
+    color: #fff;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.pregF input {
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    outline: none;
+    font-size: 16px;
+}
+
+.pregF button {
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #4CAF50;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.pregF button:hover {
+    background: #45a049;
+}
+
+.pregF p {
+    color: #ff4d4d;
+    text-align: center;
+    margin: 0;
+}

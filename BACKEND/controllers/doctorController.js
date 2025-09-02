@@ -1,5 +1,5 @@
 const Doctor = require("../models/doctorModel");
-
+const axios = require("axios");
 // CREATE
 exports.createDoctor = async (req, res) => {
     try {
@@ -18,7 +18,7 @@ exports.getAllDoctors = async (req, res) => {
             .sort({ doctorName: 1 }); // Sort alphabetically by name
 
         console.log(`📊 Found ${doctors.length} doctors`);
-        
+
         res.status(200).json({
             success: true,
             count: doctors.length,
@@ -65,8 +65,8 @@ exports.getDoctorById = async (req, res) => {
 exports.getDoctorsByDepartment = async (req, res) => {
     try {
         const { department } = req.params;
-        const doctors = await Doctor.find({ 
-            department: { $regex: department, $options: 'i' } 
+        const doctors = await Doctor.find({
+            department: { $regex: department, $options: 'i' }
         }).sort({ doctorName: 1 });
 
         res.status(200).json({
@@ -88,7 +88,7 @@ exports.getDoctorsByDepartment = async (req, res) => {
 exports.getDoctorStats = async (req, res) => {
     try {
         const totalDoctors = await Doctor.countDocuments();
-        
+
         const departmentStats = await Doctor.aggregate([
             {
                 $group: {
@@ -117,3 +117,18 @@ exports.getDoctorStats = async (req, res) => {
         });
     }
 };
+
+
+exports.recommendDoctor = async (req, res) => {
+    try {
+        const { symptoms } = req.body;
+        // Call Flask API
+        const response = await axios.post("http://localhost:3001/api/doctors/recommend", { symptoms });
+
+
+        res.json(response.data);
+    } catch (err) {
+        res.status(500).json({ message: "Error fetching recommendation", error: err.message });
+    }
+};
+

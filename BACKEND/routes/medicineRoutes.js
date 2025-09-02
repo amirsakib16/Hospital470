@@ -17,4 +17,7 @@ router.put('/:medicineId', medicineController.updateMedicine);
 // DELETE medicine
 router.delete('/:medicineId', medicineController.deleteMedicine);
 
+// Search medicines by name query
+router.get('/search', medicineController.searchMedicinesByName);
+
 module.exports = router;
