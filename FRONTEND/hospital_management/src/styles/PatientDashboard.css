@@ -104,6 +104,7 @@
     background: rgba(18, 18, 18, 0.6);
     box-shadow: 0 0 20px rgba(0, 255, 153, 0.3);
     border: 1px solid rgba(255, 255, 255, 0.1);
+    
 }
 
 /* ✅ UPDATED: Flex Sections Container - 1 Column for form, 1 Column for other boxes */
@@ -119,6 +120,7 @@
     max-width: 1200px;
     margin: 1rem auto;
     height: calc(100vh - 200px);
+    
     /* Take most of available height */
 }
 
@@ -145,11 +147,23 @@
     border-radius: 12px;
     background-color: rgba(255, 255, 255, 0.1);
     transition: all 0.3s ease;
+    background-image:
+        linear-gradient(rgba(0, 2, 2, 0.404), rgba(0, 0, 0, 0.289)),
+        /* dark overlay to reduce image intensity */
+        url("E:\Hospital470\FRONTEND\hospital_management\public\flexboxdoc.jpeg");
+    background-size: cover;
+    background-position: center;
 }
 .user-infoP {
     color: #fff;
     font-weight: bold;
     margin-right: 20px;
+    background-image:
+        linear-gradient(rgba(0, 2, 2, 0.404), rgba(0, 0, 0, 0.289)),
+        /* dark overlay to reduce image intensity */
+        url("E:\Hospital470\FRONTEND\hospital_management\public\flexboxdoc.jpeg");
+    background-size: cover;
+    background-position: center;
 }
 
 /* ✅ UPDATED: Grid positioning for 3 flex boxes */
@@ -164,6 +178,12 @@
     align-items: flex-start;
     justify-content: flex-start;
     text-align: left;
+    background-image:
+        linear-gradient(rgba(0, 2, 2, 0.404), rgba(0, 0, 0, 0.289)),
+        /* dark overlay to reduce image intensity */
+        url("E:\Hospital470\FRONTEND\hospital_management\public\flexboxdoc.jpeg");
+    background-size: cover;
+    background-position: center;
 }
 
 /* Second flex box - Medical Store (top right) */
@@ -172,6 +192,12 @@
     grid-row: 1;
     padding: 1rem;
     min-height: auto;
+    background-image:
+        linear-gradient(rgba(0, 2, 2, 0.404), rgba(0, 0, 0, 0.289)),
+        /* dark overlay to reduce image intensity */
+        url("E:\Hospital470\FRONTEND\hospital_management\public\flexboxdoc.jpeg");
+    background-size: cover;
+    background-position: center;
 }
 
 /* Third flex box - Hospitals (bottom right) */
@@ -180,6 +206,12 @@
     grid-row: 2;
     padding: 1rem;
     min-height: auto;
+    background-image:
+        linear-gradient(rgba(0, 2, 2, 0.404), rgba(0, 0, 0, 0.289)),
+        /* dark overlay to reduce image intensity */
+        url("E:\Hospital470\FRONTEND\hospital_management\public\flexboxdoc.jpeg");
+    background-size: cover;
+    background-position: center;
 }
 
 /* Patient Form Box Specific Styling */
@@ -190,14 +222,16 @@
     align-items: flex-start;
     justify-content: flex-start;
     text-align: left;
-    background: linear-gradient(135deg,
-            rgba(0, 0, 0, 0.7),
-            rgba(113, 226, 254, 0.4)) !important;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    
     border-radius: 15px;
     box-shadow: 0 0 25px rgba(0, 255, 153, 0.3);
     border: 1px solid rgba(0, 255, 255, 0.4);
+    background-image:
+        linear-gradient(rgba(0, 2, 2, 0.404), rgba(0, 0, 0, 0.289)),
+        /* dark overlay to reduce image intensity */
+        url("E:\Hospital470\FRONTEND\hospital_management\public\flexboxdoc.jpeg");
+    background-size: cover;
+    background-position: center;
 }
 
 /* Form Title */
@@ -759,18 +793,31 @@
     max-height: 80vh;
     overflow-y: auto;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    background-image:
+        linear-gradient(rgba(0, 2, 2, 0.404), rgba(0, 0, 0, 0.289)),
+        /* dark overlay to reduce image intensity */
+        url("E:\Hospital470\FRONTEND\hospital_management\public\flexboxdoc.jpeg");
+    background-size: cover;
+    background-position: center;
 }
 
 .alert-content h3 {
     margin-top: 0;
     font-size: 1.2rem;
     color: #fffefe;
+    background-image:
+        linear-gradient(rgba(0, 2, 2, 0.404), rgba(0, 0, 0, 0.289)),
+        /* dark overlay to reduce image intensity */
+        url("E:\Hospital470\FRONTEND\hospital_management\public\flexboxdoc.jpeg");
+    background-size: cover;
+    background-position: center;
 }
 
 .alert-content pre {
     white-space: pre-wrap;
     word-break: break-word;
     margin: 1rem 0;
+    
 }
 
 .alert-content button {
@@ -789,4 +836,5 @@
     font-weight: bold;
     display: flex;
     justify-content: center;
+    
 }

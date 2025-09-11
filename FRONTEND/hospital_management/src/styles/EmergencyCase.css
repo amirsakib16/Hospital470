@@ -1,0 +1,89 @@
+/* Navbar */
+.navbar {
+    width: 100%;
+    background: rgba(0, 0, 50, 0.85);
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 12px 25px;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo-for-em-site {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-image-em {
+    width: 55px;   /* medium size */
+    height: 55px;
+    object-fit: contain;
+}
+
+.logo-text-for-em-site {
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+}
+
+/* Push content down because navbar is fixed */
+.emergency-page {
+    padding-top: 80px;
+}
+
+/* Emergency Cases */
+.emergency-cases-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+    z-index: 1;
+    position: relative;
+}
+
+.case-card {
+    background-image:
+        linear-gradient(rgba(0, 2, 2, 0.404), rgba(0, 0, 0, 0.289)),
+        /* dark overlay to reduce image intensity */
+        url("E:\Hospital470\FRONTEND\hospital_management\public\flexboxdoc.jpeg");
+    background-size: cover;
+    background-position: center;
+    border: 1px solid white;
+    border-radius: 12px;
+    padding: 18px 22px;
+    width: 300px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.case-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+}
+
+.label {
+    font-weight: 600;
+    color: #03ddff;
+}
+
+.value {
+    font-weight: 500;
+    color: #ffffff;
+}
+
+.value.yes {
+    color: #28a745;
+    font-weight: 700;
+}
+
+.value.no {
+    color: #dc3545;
+    font-weight: 700;
+}

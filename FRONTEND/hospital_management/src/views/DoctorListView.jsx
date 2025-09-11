@@ -117,7 +117,16 @@ const DoctorList = () => {
         
         <div className="doctor-list-container">
             {/* Header Section */}
-            
+            <video
+                    className="video-background-role"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                >
+                    <source src="bkrnd.mp4" type="video/mp4" />
+                    {/* Fallback image if video fails to load */}
+                </video>
             <div className="header-section">
                 <div className="logo">
                     <img src="/logo-removebg-preview.png" alt="MediLink Logo" className="logo-image" />
@@ -178,13 +187,14 @@ const DoctorList = () => {
 
             {/* Doctors Grid */}
             <div className="doctors-grid">
+                
                 {filteredDoctors.length === 0 ? (
                     <div className="no-doctors">
                         <p>No doctors found matching your criteria</p>
                     </div>
                 ) : (
                     filteredDoctors.map((doctor) => (
-                        <div key={doctor._id} className="doctor-card">
+                        <div key={doctor._id} className="doctor-cardDDD">
                             <div className="doctor-image">
                                 <img
                                     src={getImageUrl(doctor.imagePath)}
@@ -230,14 +240,7 @@ const DoctorList = () => {
                                 </div>
                             </div>
                             
-                            <div className="doctor-actions">
-                                <button className="contact-btn">
-                                    Contact
-                                </button>
-                                <button className="appointment-btn">
-                                    Book Appointment
-                                </button>
-                            </div>
+                            
                         </div>
                     ))
                 )}

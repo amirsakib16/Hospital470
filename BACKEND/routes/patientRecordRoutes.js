@@ -35,32 +35,42 @@ const upload = multer({
 });
 
 
-// POST /api/patientrecords/
 router.post("/", upload.single("document"), async (req, res) => {
     try {
-        const { patientName, age, doctorId } = req.body;
+        const { patientName, age, doctorId, patientEmail } = req.body;
 
-        // ✅ Enhanced validation
-        if (!patientName || !age || !doctorId) {
-            return res.status(400).json({ message: "Patient name, age, and doctor selection are required." });
+        if (!patientName || !age || !doctorId || !patientEmail) {
+            return res.status(400).json({ message: "All required fields are missing" });
         }
 
-        // ✅ Validate age range
         const ageNum = parseInt(age);
         if (isNaN(ageNum) || ageNum < 0 || ageNum > 150) {
             return res.status(400).json({ message: "Age must be between 0 and 150." });
         }
 
-        // ✅ Require document upload
         if (!req.file) {
             return res.status(400).json({ message: "Document upload is required." });
         }
 
-        // Create new record
+        // Check for existing record
+        const existingPatient = await PatientRecord.findOne({ 
+            email: patientEmail.trim().toLowerCase(), 
+            doctorId: doctorId.trim() 
+        });
+
+        if (existingPatient) {
+            existingPatient.patientName = patientName.trim();
+            existingPatient.age = ageNum;
+            existingPatient.documentPath = `/documents/${req.file.filename}`;
+            const updatedRecord = await existingPatient.save();
+            return res.status(200).json(updatedRecord);
+        }
+
         const newPatientRecord = new PatientRecord({
+            email: patientEmail.trim().toLowerCase(),
             patientName: patientName.trim(),
             age: ageNum,
-            doctorId,
+            doctorId: doctorId.trim(),
             documentPath: `/documents/${req.file.filename}`
         });
 
@@ -72,6 +82,8 @@ router.post("/", upload.single("document"), async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 });
+
+
 
 // ✅ Added GET route
 router.get("/", async (req, res) => {

@@ -1,5 +1,6 @@
 const Doctor = require("../models/doctorModel");
 const axios = require("axios");
+
 // CREATE
 exports.createDoctor = async (req, res) => {
     try {
@@ -115,6 +116,24 @@ exports.getDoctorStats = async (req, res) => {
             message: 'Failed to fetch statistics',
             error: error.message
         });
+    }
+};
+
+
+// Doctor Login
+exports.doctorLogin = async (req, res) => {
+    try {
+        const { email } = req.body;
+
+        const doctor = await Doctor.findOne({ email });
+
+        if (!doctor) {
+            return res.status(404).json({ message: "Not yet registered, contact admin" });
+        }
+
+        res.status(200).json({ message: "Login successful", doctor });
+    } catch (err) {
+        res.status(500).json({ message: "Server error", error: err.message });
     }
 };
 

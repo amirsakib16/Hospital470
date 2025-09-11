@@ -11,23 +11,16 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #222;
+    background-color: #000000df;
     color: #fff;
     padding: 0.5rem 1rem;
-    font-size: 1.2rem;
+    font-size: 1.8rem;
     position: relative;
     z-index: 100;
-    background: rgba(11, 57, 48, 0.536);
-    /* semi-transparent */
-    backdrop-filter: blur(92px);
-    -webkit-backdrop-filter: blur(92px);
-
-    box-shadow: 0 0 20px rgba(2, 49, 31, 0.3);
-    /* neon glow */
-    border: 1px solid rgba(255, 255, 255, 0.1);
+        /* dark overlay to reduce image intensity */
 }
 
-.logo-for-doctor-site{
+.logo-for-doctor-site {
     display: flex;
     align-items: center;
     font-weight: bold;
@@ -192,13 +185,13 @@
     color: #00ff99;
     min-width: 100px;
     font-family: 'Orbitron';
-    font-size:x-large;
+    font-size: x-large;
 }
 
 .info-item .value {
     color: #bdd4ff;
     font-family: 'Orbitron';
-    font-size:x-large;
+    font-size: x-large;
 }
 
 
@@ -230,9 +223,10 @@
 
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
     border: 1px solid rgba(0, 255, 255, 0.329);
-    background-image: 
-    linear-gradient(rgba(0, 255, 242, 0.2), rgba(0, 0, 0, 0.7)), /* dark overlay to reduce image intensity */
-    url("E:/Hospital470/FRONTEND/hospital_management/public/smalltexture.jpeg");
+    background-image:
+        linear-gradient(rgba(0, 2, 2, 0.404), rgba(0, 0, 0, 0.289)),
+        /* dark overlay to reduce image intensity */
+        url("E:\Hospital470\FRONTEND\hospital_management\public\flexboxdoc.jpeg");
     background-size: cover;
     background-position: center;
 }
@@ -408,7 +402,7 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    
+
     z-index: 900;
 }
 

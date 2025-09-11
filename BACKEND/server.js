@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
+require("dotenv").config();
 
 const connectDB = require("./config/db");
 const doctorRoutes = require("./routes/doctorRoutes");
@@ -10,6 +11,11 @@ const medicineRoutes = require("./routes/medicineRoutes");
 const authRoutes = require('./routes/authRoutes');
 const feedbackRoutes = require('./routes/feedbackRoutes');
 const patientRoutes = require('./routes/patientRoutes');
+const hospitalRoutes = require("./routes/hospitalRoutes");
+const hospitalCaseRoute = require('./routes/hospitalCaseRoutes');
+
+
+
 const app = express();
 const PORT = 5000;
 
@@ -61,6 +67,10 @@ app.use("/api/medicines", medicineRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/register', patientRoutes);
 app.use('/api/login', patientRoutes);
+app.use("/api/hospitals", hospitalRoutes);
+app.use("/api/login/d", doctorRoutes);
+app.use('/api/hospitalcase', hospitalCaseRoute);
+
 
 app.get("/", (req, res) => {
     res.send({ message: "Backend is running!" });

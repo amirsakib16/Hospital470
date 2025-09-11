@@ -1,0 +1,76 @@
+.hospital-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    padding: 24px;
+    justify-content: center;
+    min-height: 100vh;
+    background-size: cover;
+}
+
+.hospital-card {
+    width: 260px;
+    padding: 16px;
+    border-radius: 16px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    background-color: #fff;
+    text-align: center;
+    transition: transform 0.2s ease-in-out;
+    color: #22c55e;
+    background-image:
+        linear-gradient(rgba(0, 2, 2, 0.404), rgba(0, 0, 0, 0.289)),
+        /* dark overlay to reduce image intensity */
+        url("E:\Hospital470\FRONTEND\hospital_management\public\flexboxdoc.jpeg");
+    background-size: cover;
+    background-position: center;
+    border: 1px solid white;
+}
+
+.hospital-card:hover {
+    transform: scale(1.05);
+}
+
+.hospital-img {
+    width: 128px;
+    height: 128px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 12px;
+}
+
+.hospital-name {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.hospital-bed {
+    color: #06bdff;
+    margin-bottom: 12px;
+}
+
+.book-btn {
+    padding: 10px 16px;
+    background-color: #22c55e;
+    /* green */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.2s ease-in-out;
+}
+
+.book-btn:hover {
+    background-color: #16a34a;
+}
+
+.no-bed-btn {
+    padding: 10px 16px;
+    background-color: #9ca3af;
+    /* gray */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: not-allowed;
+}

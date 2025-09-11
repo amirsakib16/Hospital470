@@ -1,0 +1,133 @@
+.book-bed-container {
+    max-width: 700px;
+    margin: 50px auto;
+    padding: 30px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-image:
+        linear-gradient(rgba(0, 2, 2, 0.404), rgba(0, 0, 0, 0.289)),
+        /* dark overlay to reduce image intensity */
+        url("E:\Hospital470\FRONTEND\hospital_management\public\flexboxdoc.jpeg");
+    background-size: cover;
+    background-position: center;
+    border: 1px solid white;
+}
+
+
+
+.book-bed-container h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 24px;
+    color: #ffffff;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid #007bff;
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+.book-bed-form .form-group {
+    margin-bottom: 20px;
+}
+
+.book-bed-form label {
+    display: block;
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #ffffff;
+}
+
+.book-bed-form input[type="email"],
+.book-bed-form input[type="text"],
+.book-bed-form input[type="number"] {
+    width: 95%;
+    padding: 12px 14px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 15px;
+    outline: none;
+    background: #fafafa;
+    transition: all 0.3s ease;
+}
+
+.book-bed-form input:focus {
+    border-color: #007bff;
+    background: #fff;
+    box-shadow: 0 0 6px rgba(0, 123, 255, 0.3);
+}
+
+.book-bed-form .form-group button {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.book-bed-form .btn-true {
+    background: linear-gradient(135deg, #28a745, #218838);
+    color: white;
+}
+
+.book-bed-form .btn-false {
+    background: linear-gradient(135deg, #dc3545, #c82333);
+    color: white;
+}
+
+.book-bed-form .btn-true:hover {
+    background: linear-gradient(135deg, #218838, #1e7e34);
+    transform: scale(1.05);
+}
+
+.book-bed-form .btn-false:hover {
+    background: linear-gradient(135deg, #c82333, #bd2130);
+    transform: scale(1.05);
+}
+
+.book-bed-form button[type="submit"] {
+    width: 100%;
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+    font-weight: 700;
+    padding: 14px;
+    margin-top: 12px;
+    border-radius: 10px;
+    font-size: 16px;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+}
+
+.book-bed-form button[type="submit"]:hover {
+    background: linear-gradient(135deg, #0056b3, #004080);
+    transform: scale(1.03);
+}
+
+.book-bed-form button[disabled] {
+    background: #ccc !important;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+/* Responsive for mobile */
+@media (max-width: 600px) {
+    .book-bed-container {
+        margin: 20px;
+        padding: 20px;
+    }
+
+    .book-bed-container h2 {
+        font-size: 20px;
+    }
+
+    .book-bed-form input,
+    .book-bed-form button {
+        font-size: 14px;
+    }
+}

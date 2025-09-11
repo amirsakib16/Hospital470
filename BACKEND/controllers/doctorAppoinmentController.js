@@ -37,18 +37,25 @@ exports.getAllPatients = async (req, res) => {
 };
 
 // Download PDF file
+// Download PDF file by patient email
 exports.downloadPatientDocument = async (req, res) => {
     try {
-        const { patientId } = req.params;
-        
-        const patient = await PatientRecord.findById(patientId);
+        const { email } = req.params;
+
+        // find patient by email (not _id)
+        const patient = await PatientRecord.findOne({ email });
         if (!patient || !patient.documentPath) {
             return res.status(404).json({ message: "Document not found" });
         }
 
-        const filePath = path.join(__dirname, '..', 'uploads', 'documents', 
-            patient.documentPath.replace('/documents/', ''));
-        
+        const filePath = path.join(
+            __dirname,
+            '..',
+            'uploads',
+            'documents',
+            patient.documentPath.replace('/documents/', '')
+        );
+
         if (!fs.existsSync(filePath)) {
             return res.status(404).json({ message: "File not found on server" });
         }
@@ -56,10 +63,11 @@ exports.downloadPatientDocument = async (req, res) => {
         const fileName = `${patient.patientName}_medical_report.pdf`;
         res.setHeader('Content-Disposition', `attachment; filename="${fileName}"`);
         res.setHeader('Content-Type', 'application/pdf');
-        
+
         res.sendFile(filePath);
     } catch (error) {
         console.error('Error downloading document:', error);
         res.status(500).json({ message: error.message });
     }
 };
+

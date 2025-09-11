@@ -10,6 +10,6 @@ router.get('/', doctorAppoinmentController.getAllPatients);
 
 
 // Download patient document
-router.get('/download/:patientId', doctorAppoinmentController.downloadPatientDocument);
+router.get('/download/:email', doctorAppoinmentController.downloadPatientDocument);
 
 module.exports = router;

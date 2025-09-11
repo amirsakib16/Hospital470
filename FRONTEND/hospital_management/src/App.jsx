@@ -10,6 +10,11 @@ import PatientLogin from './components/PatientLogin';
 import DoctorList from "./components/DoctorList";
 import PatientReg from "./components/PatientRegister";
 import DoctorRecommendations from "./components/DoctorRecommendation";
+import Hospital from "./components/Hospital";
+import DoctorLogin from "./components/DoctorLogin";
+import BookBed from "./components/BookBedForm";
+import EmergencyCase from "./components/EmergencyCase";
+
 const App = () => {
   return (
     <Router>
@@ -22,9 +27,13 @@ const App = () => {
         <Route path="/dapp" element={<DoctorAppoinment />} />
         <Route path="/med" element={<MedicineList />} />
         <Route path="/patientLogin" element={<PatientLogin />} />
+        <Route path="/doctorLogin" element={<DoctorLogin />} />
         <Route path="/alldoc" element={<DoctorList />} />
         <Route path="/preg" element={<PatientReg />} />
         <Route path="/docreco" element={<DoctorRecommendations />} />
+        <Route path="/hospital" element={<Hospital />} />
+        <Route path="/bookbed" element={<BookBed />} />
+        <Route path="/emcase" element={<EmergencyCase />} />
       </Routes>
     </Router>
   );

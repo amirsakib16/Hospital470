@@ -9,24 +9,30 @@ const DoctorPatients = () => {
     const [feedbackText, setFeedbackText] = useState('');
     const [submitStatus, setSubmitStatus] = useState('');
 
-    const currentDoctorId = "688e902029dafca8fb5c5e5b"; 
-
+    const loggedInDoctor = JSON.parse(localStorage.getItem('userSession'));
+    const email = loggedInDoctor?.email;
+    const doctorId = loggedInDoctor?._id;
 
     useEffect(() => {
-        fetchPatientsByDoctor();
-    }, []);
+        if (email) {
+            fetchPatientsByDoctor();
+        } else {
+            setError('Doctor not logged in');
+            setLoading(false);
+        }
+    }, [email]);
 
     const fetchPatientsByDoctor = async () => {
         try {
             setLoading(true);
-            const response = await fetch(`http://localhost:5000/api/appointments/doctor/${currentDoctorId}`);
+            const response = await fetch(`http://localhost:5000/api/doctors/doctor-email/${email}`);
 
             if (!response.ok) {
                 throw new Error('Failed to fetch patients');
             }
 
             const data = await response.json();
-            setPatients(data);
+            setPatients(data.data);
             setError(null);
         } catch (error) {
             console.error('Error fetching patients:', error);
@@ -36,9 +42,9 @@ const DoctorPatients = () => {
         }
     };
 
-    const downloadPDF = async (patientId, patientName) => {
+    const downloadPDF = async (patientEmail, patientName) => {
         try {
-            const response = await fetch(`http://localhost:5000/api/appointments/download/${patientId}`);
+            const response = await fetch(`http://localhost:5000/api/doctors/download/${patientEmail}`);
 
             if (!response.ok) {
                 throw new Error('Failed to download document');
@@ -78,7 +84,7 @@ const DoctorPatients = () => {
             </div>
         );
     }
-    const submitFeedback = async (patientId) => {
+    const submitFeedback = async (patientEmail) => {
         if (!feedbackText.trim()) return;
 
         try {
@@ -86,8 +92,8 @@ const DoctorPatients = () => {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    patientId,
-                    doctorId: currentDoctorId,
+                    patientEmail, // Use email instead of patientId
+                    doctorId,
                     feedback: feedbackText,
                 }),
             });
@@ -107,8 +113,19 @@ const DoctorPatients = () => {
         }
     };
 
+
     return (
         <div className="doctor-patients-container">
+            <video
+                    className="video-background-role"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                >
+                    <source src="bkrnd.mp4" type="video/mp4" />
+                    {/* Fallback image if video fails to load */}
+                </video>
             <div className="header-section">
                 <h1>My Patient Records</h1>
                 <p>Total Patients: {patients.length}</p>
@@ -164,7 +181,7 @@ const DoctorPatients = () => {
                                         </a>
                                         <button
                                             className="download-report-btn"
-                                            onClick={() => downloadPDF(patient._id, patient.patientName)}
+                                            onClick={() => downloadPDF(patient.email, patient.patientName)}
                                         >
                                             Download Report
                                         </button>
@@ -190,12 +207,17 @@ const DoctorPatients = () => {
                                         placeholder="Write your feedback here..."
                                         rows={4}
                                     />
-                                    <button className="submit-feedback-btn" onClick={() => submitFeedback(patient._id)}>
+                                    <button
+                                        className="submit-feedback-btn"
+                                        onClick={() => submitFeedback(patient.email)}
+                                    >
                                         Submit
                                     </button>
+
                                     {submitStatus && <p className="status-msg">{submitStatus}</p>}
                                 </div>
                             )}
+
 
 
                         </div>

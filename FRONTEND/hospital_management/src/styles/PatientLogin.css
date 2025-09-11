@@ -30,6 +30,7 @@ html {
     backdrop-filter: blur(8px);
     /* glassmorphism */
     text-align: center;
+    margin-left:30px ;
 }
 
 .plog h2 {

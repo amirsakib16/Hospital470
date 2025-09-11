@@ -24,6 +24,16 @@ const DoctorRecommendation = () => {
 
     return (
         <div className="recFormContainer">
+            <video
+                    className="video-background-role"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                >
+                    <source src="bkrnd.mp4" type="video/mp4" />
+                    {/* Fallback image if video fails to load */}
+                </video>
             <form className="recForm" onSubmit={handleSubmit}>
                 <h2>Find a Doctor</h2>
                 <input

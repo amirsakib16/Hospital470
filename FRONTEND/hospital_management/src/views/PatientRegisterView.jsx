@@ -32,7 +32,20 @@ const Register = () => {
 
     return (
         <div className='patientregform'>
-            <h1 className='reg'>Patient Registration Form</h1>
+            <video
+                    className="video-background-role"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                >
+                    <source src="bkrnd.mp4" type="video/mp4" />
+                    {/* Fallback image if video fails to load */}
+                </video>
+                <div className="logoROLE">
+                <img src="/logo-removebg-preview.png" alt="Company Logo" className="logo-imageROLE" />
+                <span className="logo-textROLE">MediLink</span>
+            </div>
         <form className = "pregF" onSubmit={handleSubmit}>
             {error && <p>{error}</p>}
             <input name="name" value={form.name} onChange={handleChange} placeholder="Name" required />

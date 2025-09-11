@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import "../styles/About.css";
+import { useNavigate } from 'react-router-dom';
 
 const UserProfileEdit = () => {
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         doctorName: '',
         department: '',
@@ -47,6 +49,7 @@ const UserProfileEdit = () => {
                     id: '',
                     image: null,
                 });
+            navigate('/doctorLogin');
             } else {
                 alert(`Error: ${result.message}`);
             }
@@ -58,7 +61,23 @@ const UserProfileEdit = () => {
 
 
     return (
+        <>
+        <div className="logoROLE">
+                <img src="/logo-removebg-preview.png" alt="Company Logo" className="logo-image" />
+                <span className="logo-textROLE">MediLink</span>
+            </div>
         <div className="profile-edit-container">
+            <video
+                    className="video-background-role"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                >
+                    <source src="bkrnd.mp4" type="video/mp4" />
+                    {/* Fallback image if video fails to load */}
+                </video>
+                
             <h2>DOCTOR PROFILE UPDATE</h2>
             <form className="profile-edit-form" onSubmit={handleSubmit}>
                 <label>
@@ -149,10 +168,11 @@ const UserProfileEdit = () => {
                     />
                 </label>
 
-                <button type="submit">Save</button>
+                <button type="submit">Register</button>
             </form>
         </div>
-    );
+    </>);
+    
 };
 
 export default UserProfileEdit;

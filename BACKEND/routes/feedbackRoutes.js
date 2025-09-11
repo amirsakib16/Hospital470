@@ -5,9 +5,13 @@ const Feedback = require("../models/feedbackModel"); // Rename to Feedback for c
 // POST endpoint to store feedback
 router.post('/', async (req, res) => {
     try {
-        const { patientId, doctorId, feedback } = req.body;
+        const { patientEmail, doctorId, feedback } = req.body;  // ✅ Use patientEmail
 
-        const newFeedback = new Feedback({ patientId, doctorId, feedback });
+        if (!patientEmail || !doctorId || !feedback) {
+            return res.status(400).json({ message: 'All fields are required' });
+        }
+
+        const newFeedback = new Feedback({ patientEmail, doctorId, feedback });  // ✅ save patientEmail
         await newFeedback.save();
 
         res.status(201).json({ message: 'Feedback saved' });
@@ -16,13 +20,20 @@ router.post('/', async (req, res) => {
         res.status(500).json({ error: 'Failed to save feedback' });
     }
 });
-router.get('/:patientId', async (req, res) => {
+router.get('/email/:email', async (req, res) => {
     try {
-        const feedbacks = await Feedback.find({ patientId: req.params.patientId }); // ✅ Correct name
+        const { email } = req.params;
+        if (!email) return res.status(400).json({ message: 'Email is required' });
+
+        const feedbacks = await Feedback.find({ patientEmail: email.toLowerCase() });
+        if (feedbacks.length === 0) {
+            return res.status(404).json({ message: 'No feedback found for this patient.' });
+        }
+
         res.status(200).json(feedbacks);
     } catch (error) {
         console.error('Error fetching feedback:', error);
-        res.status(500).json({ message: 'Error retrieving feedback', error });
+        res.status(500).json({ message: error.message });
     }
 });
 

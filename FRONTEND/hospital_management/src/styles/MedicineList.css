@@ -64,6 +64,13 @@
     border: 1px solid rgba(0, 255, 255, 0.329);
     color: white;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-image:
+        linear-gradient(rgba(0, 2, 2, 0.404), rgba(0, 0, 0, 0.289)),
+        /* dark overlay to reduce image intensity */
+        url("E:\Hospital470\FRONTEND\hospital_management\public\flexboxdoc.jpeg");
+    background-size: cover;
+    background-position: center;
+    border: 1px solid white;
 }
 
 .medicine-card:hover {

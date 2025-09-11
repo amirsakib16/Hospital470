@@ -6,6 +6,12 @@ const Login = () => {
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
+
+    const handleRegister = (e) => {
+        e.preventDefault(); // stop form submission
+        navigate('/preg');
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
@@ -31,8 +37,22 @@ const Login = () => {
 
     return (
         <div className="loginFormContainer">
+            <video
+                    className="video-background-role"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                >
+                    <source src="bkrnd.mp4" type="video/mp4" />
+                    {/* Fallback image if video fails to load */}
+                </video>
+            <div className="logoROLE">
+                <img src="/logo-removebg-preview.png" alt="Company Logo" className="logo-imageROLE" />
+                <span className="logo-textROLE">MediLink</span>
+            </div>
             <form className = "plog" onSubmit={handleSubmit}>
-                <h2>Login</h2>
+                <h2>Login as Patient</h2>
                 {error && <p style={{ color: 'red' }}>{error}</p>}
                 <input
                     type="email"
@@ -42,6 +62,7 @@ const Login = () => {
                     required
                 />
                 <button type="submit">Login</button>
+                <button onClick={handleRegister}>Register</button>
             </form>
         </div>
     );

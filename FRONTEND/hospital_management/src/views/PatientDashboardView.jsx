@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import "../styles/PatientDashboard.css";
+import { useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
+    const navigate = useNavigate();
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [doctors, setDoctors] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -23,12 +25,34 @@ const Dashboard = () => {
     const [time, setTime] = useState('');
     const [patientType, setPatientType] = useState('New');
     const [submitting, setSubmitting] = useState(false);
-    const patientId = "68908d340066669ea147d2e0"; // Replace this with actual dynamic ID
+    const session = JSON.parse(localStorage.getItem('userSession'));
+    const patientId = session?._id || null;
+    // Replace this with actual dynamic ID
 
     const toggleSidebar = () => {
         setSidebarOpen(!sidebarOpen);
     };
+    const handleNavigate = (path) => {
+        navigate(path);
+    };
+    const handleSidebarNavigation = (item) => {
+        setSidebarOpen(false); // Close sidebar after click
 
+        switch (item) {
+            case "Tell How You Feels":
+                navigate("/docreco");
+                break;
+            case "Doctors":
+                navigate("/alldoc");
+                break;
+            case "Log out":
+                localStorage.removeItem("userSession"); // clear session
+                navigate("/");
+                break;
+            default:
+                console.log(`Navigation not configured for: ${item}`);
+        }
+    };
     useEffect(() => {
         const fetchDoctors = async () => {
             try {
@@ -104,8 +128,10 @@ const Dashboard = () => {
 
 
     const handleDoctorResponse = async () => {
+        if (!patientEmail) return alert("Patient email not available");
+
         try {
-            const response = await fetch(`http://localhost:5000/api/feedback/${patientId}`);
+            const response = await fetch(`http://localhost:5000/api/feedback/email/${patientEmail}`);
             if (!response.ok) {
                 throw new Error('Failed to fetch feedback');
             }
@@ -131,6 +157,7 @@ const Dashboard = () => {
 
 
 
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -143,7 +170,8 @@ const Dashboard = () => {
         formData.append('patientName', patientName);
         formData.append('age', age);
         formData.append('document', documentFile);
-        formData.append('doctorId', selectedDoctor);
+        formData.append('doctorId', selectedDoctor); // doctor from form
+        formData.append('patientEmail', patientEmail); // logged-in patient email
         formData.append('time', time);
         formData.append('patientType', patientType);
 
@@ -177,6 +205,7 @@ const Dashboard = () => {
         }
     };
 
+
     const renderDoctorOptions = () => {
         if (!Array.isArray(doctors)) return <option value="">No doctors available</option>;
         if (doctors.length === 0) return <option value="">No doctors available</option>;
@@ -190,6 +219,16 @@ const Dashboard = () => {
 
     return (
         <div className={`dashboard-containerP ${sidebarOpen ? 'sidebar-openP' : ''}`}>
+            <video
+                    className="video-background-role"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                >
+                    <source src="bkrnd.mp4" type="video/mp4" />
+                    {/* Fallback image if video fails to load */}
+                </video>
             <nav className="top-navbarP">
                 <div className="user-infoP">
                     <span>Welcome, {patientEmail}</span>
@@ -322,12 +361,21 @@ const Dashboard = () => {
                             </form>
                         </div>
 
-                        <div className="flex-boxP">
+                        <div className="flex-boxP"
+                        onClick={() => handleNavigate("/med")}
+                            role="button"
+                            tabIndex={0}
+                            onKeyPress={(e) => e.key === "Enter" && handleNavigate("/med")}>
+                            
                             <img src="/IMG_6846-removebg-preview.png" alt="Medical Store" className="box-logo-MS" />
                             <p>Medical Store</p>
                         </div>
 
-                        <div className="flex-boxP">
+                        <div className="flex-boxP"
+                        onClick={() => handleNavigate("/hospital")}
+                            role="button"
+                            tabIndex={0}
+                            onKeyPress={(e) => e.key === "Enter" && handleNavigate("/hospital")}>
                             <img src="/IMG_6847-removebg-preview.png" alt="Hospitals" className="box-logo-H" />
                             <p>Hospitals</p>
                         </div>
@@ -335,21 +383,18 @@ const Dashboard = () => {
                 </div>
 
                 <aside className={`sidebar ${sidebarOpen ? 'open' : ''}`}>
-                    <button className="close-btnP" onClick={toggleSidebar} aria-label="Close Sidebar">
-                        &times;
-                    </button>
-                    <div className="sidebar-contentP">
-                        <h2>Menu</h2>
-                        <ul>
-                            <li>My Profile</li>
-                            <li>Appointments</li>
-                            <li>Doctors</li>
-                            <li>Nearby Hospitals</li>
-                            <li>Settings</li>
-                            <li>Log out</li>
-                        </ul>
-                    </div>
-                </aside>
+                <button className="close-btnP" onClick={toggleSidebar} aria-label="Close Sidebar">
+                    &times;
+                </button>
+                <div className="sidebar-contentP">
+                    <h2>Menu</h2>
+                    <ul>
+                        <li onClick={() => handleSidebarNavigation("Tell How You Feels")}>Tell How You Feels</li>
+                        <li onClick={() => handleSidebarNavigation("Doctors")}>Doctors</li>
+                        <li onClick={() => handleSidebarNavigation("Log out")}>Log out</li>
+                    </ul>
+                </div>
+            </aside>
 
                 {sidebarOpen && <div className="overlayP" onClick={toggleSidebar}></div>}
             </div>

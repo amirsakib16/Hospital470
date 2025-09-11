@@ -1,11 +1,21 @@
 const mongoose = require("mongoose");
-// Define schema
+
 const feedbackSchema = new mongoose.Schema({
-    patientId: String,
-    doctorId: String,
-    feedback: String,
-    submittedAt: { type: Date, default: Date.now },
+    patientEmail: {
+        type: String,
+        required: true,   // ✅ email is required now
+        lowercase: true,
+        trim: true
+    },
+    doctorId: {
+        type: String,
+        required: true
+    },
+    feedback: {
+        type: String,
+        required: true
+    },
+    submittedAt: { type: Date, default: Date.now }
 }, { collection: "FeedBack" });
 
-// Create model
 module.exports = mongoose.model("DoctorsFeedback", feedbackSchema);

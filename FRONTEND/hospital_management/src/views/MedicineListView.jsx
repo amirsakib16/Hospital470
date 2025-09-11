@@ -43,19 +43,21 @@ const MedicineList = () => {
 
     return (
         <div className="medicine-list-container">
+            <video
+                    className="video-background-role"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                >
+                    <source src="bkrnd.mp4" type="video/mp4" />
+                    {/* Fallback image if video fails to load */}
+                </video>
             <div className="header-section">
                 <div className="logo">
                     <img src="IMG_7065-removebg-preview.png" alt="Medi Logo" className="logo-imageMedi" />
                 </div>
-                <div className="search-box">
-                    <input
-                        type="text"
-                        placeholder="Search medicines..."
-                        value={searchQuery}
-                        onChange={e => setSearchQuery(e.target.value)}
-                        className="search-input"
-                    />
-                </div>
+                
             </div>
 
             {loading ? (

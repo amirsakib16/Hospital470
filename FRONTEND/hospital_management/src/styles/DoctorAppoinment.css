@@ -2,8 +2,8 @@
     max-width: 1200px;
     margin: 0 auto;
     padding: 2rem;
-    background-color: #f5f5f500;
     min-height: 100vh;
+    
 }
 
 .header-section {
@@ -15,7 +15,6 @@
     background: linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(113, 226, 254, 0.4));
     border-radius: 12px;
     color: white;
-    backdrop-filter: blur(10px);
 }
 
 .see-report-btn {
@@ -71,10 +70,17 @@
     backdrop-filter: blur(6px);
     border-radius: 12px;
     padding: 1.5rem;
-    box-shadow: 0 0 20px rgba(0, 255, 153, 0.3);
-    border: 1px solid rgba(0, 255, 255, 0.329);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.329);
     color: white;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-image:
+        linear-gradient(rgba(0, 2, 2, 0.404), rgba(0, 0, 0, 0.289)),
+        /* dark overlay to reduce image intensity */
+        url("E:\Hospital470\FRONTEND\hospital_management\public\flexboxdoc.jpeg");
+    background-size: cover;
+    background-position: center;
+    border: 1px solid white;
 }
 
 .patient-card:hover {
